@@ -1,1 +1,7 @@
 **/.env
+**/.gitignore
+**/.gitattributes
+
+# IDE specifics
+.idea/
+.vscode/
