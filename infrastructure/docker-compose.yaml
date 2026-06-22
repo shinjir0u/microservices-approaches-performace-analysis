@@ -6,7 +6,7 @@ services:
       - "5672:5672"
       - "15672:15672"
     networks:
-      - choreography-network
+      - my-global-network
 
   order-db:
     image: postgres:18-alpine
@@ -22,7 +22,7 @@ services:
     volumes:
       - order-db-data:/var/lib/postgresql/18/data
     networks:
-      - choreography-network
+      - my-global-network
 
   payment-db:
     image: postgres:18-alpine
@@ -38,7 +38,7 @@ services:
     volumes:
       - payment-db-data:/var/lib/postgresql/18/data
     networks:
-      - choreography-network
+      - my-global-network
 
   inventory-db:
     image: postgres:18-alpine
@@ -54,11 +54,11 @@ services:
     volumes:
       - inventory-db-data:/var/lib/postgresql/18/data
     networks:
-      - choreography-network
+      - my-global-network
 
 networks:
-  choreography-network:
-    name: choreography-network
+  my-global-network:
+    name: my-global-network
     driver: bridge
 
 volumes:
