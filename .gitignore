@@ -5,3 +5,4 @@
 # IDE specifics
 .idea/
 .vscode/
+**/.idea/
