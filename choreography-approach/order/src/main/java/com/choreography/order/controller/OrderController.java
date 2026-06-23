@@ -24,10 +24,10 @@ public class OrderController {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @Value("${spring.rabbitmq.order.exchange}")
+    @Value("${spring.rabbitmq.order.created.exchange}")
     private String exchange;
 
-    @Value("${spring.rabbitmq.order.routingKey}")
+    @Value("${spring.rabbitmq.order.created.routingKey}")
     private String routingKey;
 
     @PostMapping("/request")

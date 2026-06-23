@@ -14,7 +14,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "choreography_order_item")
+@Table(name = "order_items")
 public class OrderItem {
 
     @Id

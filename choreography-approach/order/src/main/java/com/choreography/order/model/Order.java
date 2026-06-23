@@ -20,7 +20,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder(toBuilder = true)
-@Table(name = "choreography_orders")
+@Table(name = "orders")
 public class Order {
 
     @Id
