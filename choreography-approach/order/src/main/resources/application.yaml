@@ -1,6 +1,20 @@
 spring:
   application:
     name: order
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+  rabbitmq:
+    host: localhost
+    port: 5672
+    username: guest
+    password: guest
+    order:
+      queue: "order.created.queue"
+      exchange: "order.created.exchange"
+      routingKey: "order.created.routingkey"
 
 server:
   port: 8080

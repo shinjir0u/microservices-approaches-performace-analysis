@@ -1,8 +1,12 @@
 package com.choreography.order.model;
 
+import com.choreography.order.model.dto.OrderRequest;
 import com.choreography.order.model.type.Status;
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
@@ -13,6 +17,9 @@ import java.util.UUID;
 
 @Data
 @Entity
+@NoArgsConstructor
+@AllArgsConstructor
+@Builder(toBuilder = true)
 @Table(name = "choreography_orders")
 public class Order {
 
@@ -23,8 +30,8 @@ public class Order {
     @Column(unique = true, nullable = false)
     private String number;
 
-    @Column(name = "customer_id")
-    private String customerId;
+    @Column(name = "customer_name")
+    private String customerName;
 
     @Enumerated(EnumType.STRING)
     private Status status;
@@ -46,5 +53,24 @@ public class Order {
     @LastModifiedDate
     @Column(name = "updated_at")
     private Instant updatedAt;
+
+    public static Order from(OrderRequest request) {
+
+        String orderNumber = "ORDER_REQ" + Math.random() * 100_000_000;
+
+        List<OrderItem> orderItems = request.orderItemRequests().stream()
+                .map(item ->
+                        OrderItem.builder().itemCode(item.itemCode()).quantity(item.quantity()).build()
+                )
+                .toList();
+
+        return Order.builder()
+                .number(orderNumber)
+                .customerName(request.customerName())
+                .status(Status.PENDING)
+                .totalAmount(request.totalAmount())
+                .orderItems(orderItems)
+                .build();
+    }
 
 }
