@@ -18,9 +18,9 @@ spring:
     password: guest
     order:
       created:
-        queue: "order.created.queue"
-        exchange: "order.created.exchange"
-        routingKey: "order.created.routingkey"
+        queue: order.created.queue
+        exchange: order.created.exchange
+        routingKey: order.created.routingkey
 
 server:
   port: 8080
