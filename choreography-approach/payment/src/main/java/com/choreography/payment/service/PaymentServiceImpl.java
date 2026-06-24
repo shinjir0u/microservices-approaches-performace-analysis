@@ -34,13 +34,13 @@ public class PaymentServiceImpl implements PaymentService {
         var payment = Payment.builder().orderId(orderId).amount(amount).paidAt(Instant.now()).build();
 
         var paymentChargedEvent = PaymentChargedEvent.builder()
-                        .eventId(UUID.randomUUID().toString())
-                        .paymentId(payment.getId())
-                        .orderId(payment.getOrderId())
-                        .build();
+                .eventId(UUID.randomUUID().toString())
+                .paymentId(payment.getId())
+                .orderId(payment.getOrderId())
+                .build();
 
         rabbitTemplate.convertAndSend(paymentChargedExchange, paymentChargedRoutingKey, paymentChargedEvent);
-        log.info("Created payment charged event with id: {}", paymentChargedEvent.);
+        log.info("Created payment charged event with id: {}", paymentChargedEvent);
         return paymentRepository.save(payment);
     }
 
