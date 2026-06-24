@@ -5,6 +5,13 @@ services:
     ports:
       - "5672:5672"
       - "15672:15672"
+    entrypoint: >
+      sh -c "
+      rabbitmq-server & 
+      rabbitmqctl wait /var/run/rabbitmq/pid; 
+      rabbitmqctl add_vhost /choreography; 
+      rabbitmqctl add_vhost /orchestration; 
+      wait"
     networks:
       - my-global-network
 
@@ -14,11 +21,7 @@ services:
     ports:
       - "5433:5432"
     env_file:
-      - ".env"
-    environment:
-      POSTGRES_USER: ${ORDER_USER}
-      POSTGRES_PASSWORD: ${ORDER_PASSWORD}
-      POSTGRES_DB: ${ORDER_DB}
+      - "order/.env"
     volumes:
       - order-db-data:/var/lib/postgresql/18/data
     networks:
@@ -30,11 +33,7 @@ services:
     ports:
       - "5434:5432"
     env_file:
-      - ".env"
-    environment:
-      POSTGRES_USER: ${PAYMENT_USER}
-      POSTGRES_PASSWORD: ${PAYMENT_PASSWORD}
-      POSTGRES_DB: ${PAYMENT_DB}
+      - "payment/.env"
     volumes:
       - payment-db-data:/var/lib/postgresql/18/data
     networks:
@@ -46,11 +45,7 @@ services:
     ports:
       - "5435:5432"
     env_file:
-      - ".env"
-    environment:
-      POSTGRES_USER: ${INVENTORY_USER}
-      POSTGRES_PASSWORD: ${INVENTORY_PASSWORD}
-      POSTGRES_DB: ${INVENTORY_DB}
+      - "inventory/.env"
     volumes:
       - inventory-db-data:/var/lib/postgresql/18/data
     networks:
@@ -58,8 +53,8 @@ services:
 
 networks:
   my-global-network:
-    name: my-global-network
     driver: bridge
+    external: true
 
 volumes:
   order-db-data:
