@@ -6,7 +6,6 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.util.UUID;
 
 @Data
@@ -21,11 +20,8 @@ public class OrderItem {
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "item_code", unique = true, nullable = false)
+    @Column(name = "item_code", nullable = false)
     private String itemCode;
-
-    @Column(name = "price_per_unit")
-    private BigDecimal pricePerUnit;
 
     @Column(columnDefinition = "INTEGER CONSTRAINT check_quantity_positive CHECK (quantity >= 0)")
     private Integer quantity;
