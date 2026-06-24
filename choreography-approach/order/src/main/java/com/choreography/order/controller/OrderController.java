@@ -4,11 +4,12 @@ import com.choreography.order.events.order.OrderCreatedEvent;
 import com.choreography.order.model.Order;
 import com.choreography.order.model.dto.OrderRequest;
 import com.choreography.order.service.OrderService;
-import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -17,11 +18,12 @@ import java.util.UUID;
 @Slf4j
 @RestController
 @RequestMapping("/api/orders")
-@AllArgsConstructor
 public class OrderController {
 
+    @Autowired
     private OrderService orderService;
 
+    @Autowired
     private RabbitTemplate rabbitTemplate;
 
     @Value("${spring.rabbitmq.order.created.exchange}")
@@ -31,7 +33,7 @@ public class OrderController {
     private String routingKey;
 
     @PostMapping("/request")
-    public void createOrder(OrderRequest request) {
+    public void createOrder(@RequestBody OrderRequest request) {
         Order order = orderService.createOrder(request);
         log.info("Created order with id: {}", order.getId());
 

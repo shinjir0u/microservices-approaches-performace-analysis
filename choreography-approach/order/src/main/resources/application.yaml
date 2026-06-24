@@ -7,9 +7,9 @@ spring:
       ddl-auto: update
       format_sql: true
   datasource:
-    url: jdbc:postgresql://localhost:5433/choreography
-    username: order_san_123_#
-    password: order_sama_789_!
+    url: jdbc:postgresql://localhost:5434/choreography
+    username: payment_san_123_#
+    password: payment_sama_789_!
     driver-class-name: org.postgresql.Driver
   rabbitmq:
     host: localhost
