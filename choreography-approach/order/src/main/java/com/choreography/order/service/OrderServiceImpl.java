@@ -49,6 +49,7 @@ public class OrderServiceImpl implements OrderService {
                 .items(orderItems)
                 .build();
         rabbitTemplate.convertAndSend(exchange, routingKey, orderCreatedEvent);
+        log.info("Published orderCreatedEvent with id: {}", orderCreatedEvent.eventId());
 
         return savedOrder;
     }
