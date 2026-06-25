@@ -1,7 +1,7 @@
-package com.choreography.order.model;
+package com.choreography.order.model.order;
 
 import com.choreography.order.model.dto.OrderRequest;
-import com.choreography.order.model.type.Status;
+import com.choreography.order.model.order.type.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

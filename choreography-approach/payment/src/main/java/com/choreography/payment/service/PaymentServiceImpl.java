@@ -1,7 +1,7 @@
 package com.choreography.payment.service;
 
 import com.choreography.payment.events.payment.PaymentChargedEvent;
-import com.choreography.payment.model.Payment;
+import com.choreography.payment.model.payment.Payment;
 import com.choreography.payment.repository.PaymentRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;

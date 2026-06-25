@@ -1,6 +1,6 @@
-package com.choreography.payment.model;
+package com.choreography.payment.model.processedEvent;
 
-import com.choreography.payment.model.dto.EventStatus;
+import com.choreography.payment.model.processedEvent.type.EventStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -10,7 +10,7 @@ import java.util.UUID;
 @Data
 @Entity
 @Table(name = "processed_events")
-public class ProcessedEvents {
+public class ProcessedEvent {
 
     @Id
     private UUID id;

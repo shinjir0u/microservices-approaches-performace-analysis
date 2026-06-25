@@ -1,6 +1,6 @@
 package com.choreography.order.repository;
 
-import com.choreography.order.model.Order;
+import com.choreography.order.model.order.Order;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

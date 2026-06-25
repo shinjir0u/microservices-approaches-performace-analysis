@@ -1,4 +1,4 @@
-package com.choreography.order.model;
+package com.choreography.order.model.order;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

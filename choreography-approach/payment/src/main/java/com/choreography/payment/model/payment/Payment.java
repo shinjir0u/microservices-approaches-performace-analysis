@@ -1,4 +1,4 @@
-package com.choreography.payment.model;
+package com.choreography.payment.model.payment;
 
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;

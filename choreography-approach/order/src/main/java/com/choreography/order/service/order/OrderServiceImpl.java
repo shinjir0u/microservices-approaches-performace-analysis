@@ -1,8 +1,8 @@
-package com.choreography.order.service;
+package com.choreography.order.service.order;
 
 import com.choreography.order.events.order.OrderCreatedEvent;
-import com.choreography.order.model.Order;
 import com.choreography.order.model.dto.OrderRequest;
+import com.choreography.order.model.order.Order;
 import com.choreography.order.repository.OrderRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
