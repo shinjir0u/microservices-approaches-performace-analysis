@@ -17,8 +17,7 @@ public class PaymentListener {
     @RabbitListener(queues = "${spring.rabbitmq.order.created.queue}")
     public void receiveOrder(OrderCreatedEvent orderCreatedEvent) {
         log.info("Received orderCreatedEvent with id: {}", orderCreatedEvent.eventId());
-        var payment = paymentService.chargePayment(orderCreatedEvent.orderId(), orderCreatedEvent.totalAmount());
-        log.info("Charged payment with id: {}", payment.getId());
+        paymentService.chargePayment(orderCreatedEvent.orderId(), orderCreatedEvent.totalAmount());
     }
 
 }

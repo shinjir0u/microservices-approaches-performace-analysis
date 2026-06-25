@@ -23,10 +23,10 @@ public class PaymentServiceImpl implements PaymentService {
     @Autowired
     private RabbitTemplate rabbitTemplate;
 
-    @Value("${order.rabbitmq.payment.charged.exchange}")
+    @Value("${spring.rabbitmq.payment.charged.exchange}")
     private String paymentChargedExchange;
 
-    @Value("${order.rabbitmq.payment.charged.routingKey}")
+    @Value("${spring.rabbitmq.payment.charged.routingKey}")
     private String paymentChargedRoutingKey;
 
     @Override
@@ -39,9 +39,13 @@ public class PaymentServiceImpl implements PaymentService {
                 .orderId(payment.getOrderId())
                 .build();
 
+        Payment savedPayment = paymentRepository.save(payment);
+        log.info("Charged payment with id: {}", savedPayment.getId());
+
         rabbitTemplate.convertAndSend(paymentChargedExchange, paymentChargedRoutingKey, paymentChargedEvent);
-        log.info("Created payment charged event with id: {}", paymentChargedEvent);
-        return paymentRepository.save(payment);
+        log.info("Published paymentChargedEvent with id: {}", paymentChargedEvent.eventId());
+
+        return savedPayment;
     }
 
 }
