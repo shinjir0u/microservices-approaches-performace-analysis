@@ -1,5 +1,6 @@
 package com.choreography.payment.model;
 
+import com.choreography.payment.model.dto.EventStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,12 +13,12 @@ import java.util.UUID;
 public class ProcessedEvents {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String name;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private EventStatus status;
 
     @Column(name = "processed_at")
     private Instant processedAt;

@@ -1,5 +1,6 @@
 package com.choreography.order.model;
 
+import com.choreography.order.model.type.EventStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -12,7 +13,6 @@ import java.util.UUID;
 public class ProcessedEvents {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
     private String name;
@@ -20,7 +20,8 @@ public class ProcessedEvents {
     @Column(name = "order_id")
     private UUID orderId;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private EventStatus status;
 
     @Column(name = "processed_at")
     private Instant processedAt;
