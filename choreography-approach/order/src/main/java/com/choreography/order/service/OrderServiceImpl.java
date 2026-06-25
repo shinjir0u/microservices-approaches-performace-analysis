@@ -9,6 +9,7 @@ import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
@@ -28,6 +29,8 @@ public class OrderServiceImpl implements OrderService {
     @Value("${spring.rabbitmq.order.created.routingKey}")
     private String routingKey;
 
+    @Override
+    @Transactional
     public Order createOrder(OrderRequest orderRequest) {
         Order order = Order.from(orderRequest);
         Order savedOrder = orderRepository.save(order);
