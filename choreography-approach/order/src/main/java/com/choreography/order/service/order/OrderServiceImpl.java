@@ -24,10 +24,10 @@ public class OrderServiceImpl implements OrderService {
     private RabbitTemplate rabbitTemplate;
 
     @Value("${spring.rabbitmq.order.created.exchange}")
-    private String exchange;
+    private String orderCreatedExchange;
 
     @Value("${spring.rabbitmq.order.created.routingKey}")
-    private String routingKey;
+    private String orderCreatedRoutingKey;
 
     @Override
     @Transactional
@@ -51,7 +51,7 @@ public class OrderServiceImpl implements OrderService {
                 .totalAmount(savedOrder.getTotalAmount())
                 .items(orderItems)
                 .build();
-        rabbitTemplate.convertAndSend(exchange, routingKey, orderCreatedEvent);
+        rabbitTemplate.convertAndSend(orderCreatedExchange, orderCreatedRoutingKey, orderCreatedEvent);
         log.info("Published orderCreatedEvent with id: {}", orderCreatedEvent.eventId());
 
         return savedOrder;
