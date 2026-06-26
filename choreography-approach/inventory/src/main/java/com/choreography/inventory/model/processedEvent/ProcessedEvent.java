@@ -1,6 +1,6 @@
 package com.choreography.inventory.model.processedEvent;
 
-import com.choreography.payment.model.processedEvent.type.EventStatus;
+import com.choreography.inventory.model.processedEvent.type.EventStatus;
 import jakarta.persistence.*;
 import lombok.Data;
 
