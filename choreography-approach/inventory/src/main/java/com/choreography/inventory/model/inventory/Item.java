@@ -28,4 +28,14 @@ public class Item {
 
     private BigDecimal amount;
 
+    public Item addQuantity(Integer quantity) {
+        this.quantity += quantity;
+        return this;
+    }
+
+    public Item subtractQuantity(Integer quantity) {
+        this.quantity -= quantity;
+        return this;
+    }
+
 }
