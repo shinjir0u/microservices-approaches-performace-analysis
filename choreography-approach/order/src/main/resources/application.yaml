@@ -30,6 +30,11 @@ spring:
         queue: ${PAYMENT_CHARGED_QUEUE}
         exchange: ${PAYMENT_CHARGED_EXCHANGE}
         routingKey: ${PAYMENT_CHARGED_ROUTINGKEY}
+    inventory:
+      reserved:
+        queue: ${INVENTORY_CHARGED_QUEUE}
+        exchange: ${INVENTORY_CHARGED_EXCHANGE}
+        routingKey: ${INVENTORY_CHARGED_ROUTINGKEY}
 
 server:
   port: 8080
