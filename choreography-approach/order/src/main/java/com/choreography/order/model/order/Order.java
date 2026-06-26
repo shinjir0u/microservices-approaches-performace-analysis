@@ -41,7 +41,7 @@ public class Order {
     @Column(name = "total_amount")
     private BigDecimal totalAmount;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "order_id")
     private List<OrderItem> orderItems;
 
