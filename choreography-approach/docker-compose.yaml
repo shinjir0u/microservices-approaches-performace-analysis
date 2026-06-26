@@ -35,8 +35,8 @@ services:
     env_file:
       - ".env"
       - "../infrastructure/inventory/.env"
-    depends_on:
-      - inventory-db
+    networks:
+      - my-global-network
 
 networks:
   my-global-network:
