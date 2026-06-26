@@ -5,16 +5,12 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfiguration {
-
-    @Value("${spring.rabbitmq.order.created.queue}")
-    private String orderCreatedQueue;
 
     @Value("${spring.rabbitmq.payment.charged.queue}")
     private String paymentChargedQueue;
@@ -26,13 +22,6 @@ public class RabbitMQConfiguration {
     private String paymentChargedRoutingKey;
 
     @Bean
-    @Qualifier("order.created.queue")
-    public Queue orderCreatedQueue() {
-        return new Queue(orderCreatedQueue);
-    }
-
-    @Bean
-    @Qualifier("payment.charged.queue")
     public Queue paymentChargedQueue() {
         return new Queue(paymentChargedQueue);
     }

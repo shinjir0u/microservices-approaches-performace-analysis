@@ -13,27 +13,27 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfiguration {
 
     @Value("${spring.rabbitmq.order.created.queue}")
-    private String orderQueue;
+    private String orderCreatedQueue;
 
     @Value("${spring.rabbitmq.order.created.exchange}")
-    private String exchange;
+    private String orderCreatedExchange;
 
     @Value("${spring.rabbitmq.order.created.routingKey}")
-    private String routingKey;
+    private String orderCreatedRoutingKey;
 
     @Bean
     public Queue queue() {
-        return new Queue(orderQueue);
+        return new Queue(orderCreatedQueue);
     }
 
     @Bean
     public Exchange exchange() {
-        return new TopicExchange(exchange);
+        return new TopicExchange(orderCreatedExchange);
     }
 
     @Bean
     public Binding bind(Queue queue, Exchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(routingKey).noargs();
+        return BindingBuilder.bind(queue).to(exchange).with(orderCreatedRoutingKey).noargs();
     }
 
     @Bean
