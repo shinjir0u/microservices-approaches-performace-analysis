@@ -2,17 +2,17 @@ package com.choreography.payment.listener;
 
 import com.choreography.payment.events.order.OrderCreatedEvent;
 import com.choreography.payment.service.PaymentService;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Slf4j
 @Component
+@RequiredArgsConstructor
 public class PaymentListener {
 
-    @Autowired
-    private PaymentService paymentService;
+    private final PaymentService paymentService;
 
     @RabbitListener(queues = "${spring.rabbitmq.order.created.queue}")
     public void receiveOrder(OrderCreatedEvent orderCreatedEvent) {
