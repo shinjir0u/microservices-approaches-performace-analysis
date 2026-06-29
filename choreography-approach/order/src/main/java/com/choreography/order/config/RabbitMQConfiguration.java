@@ -12,8 +12,11 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class RabbitMQConfiguration {
 
-    @Value("${spring.rabbitmq.order.created.queue}")
-    private String orderCreatedQueue;
+    @Value("${spring.rabbitmq.order.created.payment.queue}")
+    private String orderCreatedPaymentQueue;
+
+    @Value("${spring.rabbitmq.order.created.inventory.queue}")
+    private String orderCreatedInventoryQueue;
 
     @Value("${spring.rabbitmq.order.created.exchange}")
     private String orderCreatedExchange;
@@ -22,18 +25,28 @@ public class RabbitMQConfiguration {
     private String orderCreatedRoutingKey;
 
     @Bean
-    public Queue queue() {
-        return new Queue(orderCreatedQueue);
+    public Queue paymentQueue() {
+        return new Queue(orderCreatedPaymentQueue);
+    }
+
+    @Bean
+    public Queue inventoryQueue() {
+        return new Queue(orderCreatedInventoryQueue);
     }
 
     @Bean
     public Exchange exchange() {
-        return new TopicExchange(orderCreatedExchange);
+        return new FanoutExchange(orderCreatedExchange);
     }
 
     @Bean
-    public Binding bind(Queue queue, Exchange exchange) {
-        return BindingBuilder.bind(queue).to(exchange).with(orderCreatedRoutingKey).noargs();
+    public Binding bindPaymentQueue() {
+        return BindingBuilder.bind(paymentQueue()).to(exchange()).with(orderCreatedRoutingKey).noargs();
+    }
+
+    @Bean
+    public Binding bindInventoryQueue() {
+        return BindingBuilder.bind(inventoryQueue()).to(exchange()).with(orderCreatedRoutingKey).noargs();
     }
 
     @Bean

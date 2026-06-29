@@ -22,7 +22,8 @@ spring:
     password: ${RABBITMQ_PASSWORD}
     order:
       created:
-        queue: ${ORDER_CREATED_QUEUE}
+        inventory:
+          queue: ${ORDER_CREATED_INVENTORY_QUEUE}
     inventory:
       reserved:
         queue: ${INVENTORY_RESERVED_QUEUE}

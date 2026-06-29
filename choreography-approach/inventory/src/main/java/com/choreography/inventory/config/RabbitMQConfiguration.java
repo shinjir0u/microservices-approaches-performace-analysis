@@ -28,7 +28,7 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Exchange exchange() {
-        return new TopicExchange(inventoryReservedExchange);
+        return new FanoutExchange(inventoryReservedExchange);
     }
 
     @Bean

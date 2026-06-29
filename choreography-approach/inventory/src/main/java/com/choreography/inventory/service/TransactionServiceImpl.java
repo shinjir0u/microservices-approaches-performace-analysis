@@ -38,8 +38,6 @@ public class TransactionServiceImpl implements TransactionService {
     @Transactional
     public void addTransactions(OrderCreatedEvent orderCreatedEvent) {
 
-        log.info("Received orderCreatedEvent with id: {}", orderCreatedEvent.eventId());
-
         List<Transaction> transactions = orderCreatedEvent.items().stream()
                 .map(
                         orderedItem -> {

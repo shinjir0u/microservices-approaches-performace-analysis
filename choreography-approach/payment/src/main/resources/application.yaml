@@ -22,7 +22,8 @@ spring:
     password: ${RABBITMQ_PASSWORD}
     order:
       created:
-        queue: ${ORDER_CREATED_QUEUE}
+        payment:
+          queue: ${ORDER_CREATED_PAYMENT_QUEUE}
     payment:
       charged:
         queue: ${PAYMENT_CHARGED_QUEUE}

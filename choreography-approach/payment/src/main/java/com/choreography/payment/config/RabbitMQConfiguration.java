@@ -28,13 +28,13 @@ public class RabbitMQConfiguration {
 
     @Bean
     public Exchange paymentChargedExchange() {
-        return new TopicExchange(paymentChargedExchange);
+        return new FanoutExchange(paymentChargedExchange);
     }
 
     @Bean
-    public Binding bind() {
-        return BindingBuilder.bind(paymentChargedQueue())
-                .to(paymentChargedExchange()).with(paymentChargedRoutingKey).noargs();
+    public Binding bind(Queue queue, Exchange exchange) {
+        return BindingBuilder.bind(queue)
+                .to(exchange).with(paymentChargedRoutingKey).noargs();
     }
 
     @Bean
