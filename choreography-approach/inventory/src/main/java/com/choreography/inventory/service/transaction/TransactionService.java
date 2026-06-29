@@ -1,4 +1,4 @@
-package com.choreography.inventory.service;
+package com.choreography.inventory.service.transaction;
 
 import com.choreography.inventory.events.order.OrderCreatedEvent;
 
