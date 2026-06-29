@@ -23,6 +23,9 @@ public class ProcessedEvent {
 
     private String name;
 
+    @Column(name = "order_id")
+    private UUID orderId;
+
     @Enumerated(EnumType.STRING)
     private EventStatus status;
 

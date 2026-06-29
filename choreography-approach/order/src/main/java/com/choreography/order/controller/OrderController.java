@@ -1,7 +1,7 @@
 package com.choreography.order.controller;
 
 import com.choreography.order.model.dto.OrderRequest;
-import com.choreography.order.service.order.OrderService;
+import com.choreography.order.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

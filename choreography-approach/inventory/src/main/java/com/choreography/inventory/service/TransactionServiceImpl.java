@@ -22,17 +22,17 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class TransactionServiceImpl implements TransactionService {
 
-    private final ItemRepository itemRepository;
-
-    private final TransactionRepository transactionRepository;
-
-    private final RabbitTemplate rabbitTemplate;
-
     @Value("${spring.rabbitmq.inventory.reserved.exchange}")
     private String inventoryReservedExchange;
 
     @Value("${spring.rabbitmq.inventory.reserved.routingKey}")
     private String inventoryReservedRoutingKey;
+
+    private final ItemRepository itemRepository;
+
+    private final TransactionRepository transactionRepository;
+
+    private final RabbitTemplate rabbitTemplate;
 
     @Override
     @Transactional
@@ -46,7 +46,7 @@ public class TransactionServiceImpl implements TransactionService {
 
                             return Transaction.builder()
                                     .orderId(orderCreatedEvent.orderId())
-                                    .item(inventoryItem)
+                                    .item(updatedItem)
                                     .quantity(orderedItem.quantity())
                                     .status(TransactionStatus.SUCCESS)
                                     .build();

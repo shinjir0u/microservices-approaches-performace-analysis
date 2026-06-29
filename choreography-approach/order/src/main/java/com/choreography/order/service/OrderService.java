@@ -1,4 +1,4 @@
-package com.choreography.order.service.order;
+package com.choreography.order.service;
 
 import com.choreography.order.model.dto.OrderRequest;
 import com.choreography.order.model.order.Order;

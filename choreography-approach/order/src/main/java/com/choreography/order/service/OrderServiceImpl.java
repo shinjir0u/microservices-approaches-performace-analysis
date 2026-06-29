@@ -1,4 +1,4 @@
-package com.choreography.order.service.order;
+package com.choreography.order.service;
 
 import com.choreography.order.events.order.OrderCreatedEvent;
 import com.choreography.order.model.dto.OrderRequest;
@@ -18,15 +18,15 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class OrderServiceImpl implements OrderService {
 
-    private final OrderRepository orderRepository;
-
-    private final RabbitTemplate rabbitTemplate;
-
     @Value("${spring.rabbitmq.order.created.exchange}")
     private String orderCreatedExchange;
 
     @Value("${spring.rabbitmq.order.created.routingKey}")
     private String orderCreatedRoutingKey;
+
+    private final OrderRepository orderRepository;
+
+    private final RabbitTemplate rabbitTemplate;
 
     @Override
     @Transactional
