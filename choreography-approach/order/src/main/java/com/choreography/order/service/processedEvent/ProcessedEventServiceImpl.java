@@ -1,6 +1,6 @@
 package com.choreography.order.service.processedEvent;
 
-import com.choreography.order.event.AppEvent;
+import com.choreography.order.event.DomainEvent;
 import com.choreography.order.model.processedEvent.ProcessedEvent;
 import com.choreography.order.model.processedEvent.type.EventStatus;
 import com.choreography.order.repository.ProcessedEventRepository;
@@ -21,7 +21,7 @@ public class ProcessedEventServiceImpl implements ProcessedEventService {
 
     @Override
     @Transactional
-    public void saveAppEvent(AppEvent event, EventStatus eventStatus) {
+    public void saveDomainEvent(DomainEvent event, EventStatus eventStatus) {
 
         ProcessedEvent processedEvent = ProcessedEvent
                 .builder().eventId(UUID.fromString(event.eventId()))

@@ -2,7 +2,7 @@ package com.choreography.payment.event;
 
 import java.util.UUID;
 
-public interface AppEvent {
+public interface DomainEvent {
 
     String eventId();
 

@@ -1,6 +1,6 @@
 package com.choreography.payment.event.payment;
 
-import com.choreography.payment.event.AppEvent;
+import com.choreography.payment.event.DomainEvent;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.UUID;
@@ -11,5 +11,5 @@ public record PaymentFailedEvent(
         @JsonProperty("order_id")
         UUID orderId,
         String reason
-) implements AppEvent {
+) implements DomainEvent {
 }

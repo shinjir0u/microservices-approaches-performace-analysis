@@ -1,8 +1,8 @@
-package com.choreography.inventory.event;
+package com.choreography.order.event;
 
 import java.util.UUID;
 
-public interface AppEvent {
+public interface DomainEvent {
 
     String eventId();
 

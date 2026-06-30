@@ -1,6 +1,6 @@
 package com.choreography.order.event.order;
 
-import com.choreography.order.event.AppEvent;
+import com.choreography.order.event.DomainEvent;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Builder;
 
@@ -16,7 +16,7 @@ public record OrderCreatedEvent(
         UUID orderId,
         BigDecimal totalAmount,
         List<OrderItem> items
-) implements AppEvent {
+) implements DomainEvent {
 
     @Builder
     public record OrderItem(

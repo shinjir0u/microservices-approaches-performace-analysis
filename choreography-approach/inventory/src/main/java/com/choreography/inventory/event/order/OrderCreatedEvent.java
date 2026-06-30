@@ -1,6 +1,6 @@
 package com.choreography.inventory.event.order;
 
-import com.choreography.inventory.event.AppEvent;
+import com.choreography.inventory.event.DomainEvent;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.math.BigDecimal;
@@ -14,7 +14,7 @@ public record OrderCreatedEvent(
         UUID orderId,
         BigDecimal totalAmount,
         List<OrderItem> items
-) implements AppEvent {
+) implements DomainEvent {
 
     public record OrderItem(
             @JsonProperty("item_code")

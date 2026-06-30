@@ -1,6 +1,6 @@
 package com.choreography.payment.service.processedEvent;
 
-import com.choreography.payment.event.AppEvent;
+import com.choreography.payment.event.DomainEvent;
 import com.choreography.payment.model.processedEvent.ProcessedEvent;
 import com.choreography.payment.model.processedEvent.type.EventStatus;
 import com.choreography.payment.repository.ProcessedEventRepository;
@@ -21,7 +21,7 @@ public class ProcessedEventServiceImpl implements ProcessedEventService {
 
     @Override
     @Transactional
-    public void saveProcessedEvent(AppEvent event, EventStatus eventStatus) {
+    public void saveProcessedEvent(DomainEvent event, EventStatus eventStatus) {
         ProcessedEvent processedEvent = ProcessedEvent
                 .builder()
                 .eventId(UUID.fromString(event.eventId()))
