@@ -1,27 +1,18 @@
-package com.choreography.payment.service;
+package com.choreography.payment.service.rabbit;
 
 import com.choreography.payment.events.payment.PaymentChargedEvent;
-import com.choreography.payment.model.payment.Payment;
-import com.choreography.payment.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
-import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.UUID;
 
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class PaymentServiceImpl implements PaymentService {
-
-    private final PaymentRepository paymentRepository;
-
-    private final RabbitTemplate rabbitTemplate;
+public class RabbitServiceImpl implements RabbitService {
 
     @Value("${spring.rabbitmq.payment.charged.exchange}")
     private String paymentChargedExchange;
@@ -29,24 +20,20 @@ public class PaymentServiceImpl implements PaymentService {
     @Value("${spring.rabbitmq.payment.charged.routingKey}")
     private String paymentChargedRoutingKey;
 
+    private final RabbitTemplate rabbitTemplate;
+
     @Override
-    @Transactional
-    public Payment chargePayment(UUID orderId, BigDecimal amount) {
-        var payment = Payment.builder().orderId(orderId).amount(amount).paidAt(Instant.now()).build();
+    public void publishPaymentChargedEvent(UUID paymentId, UUID orderId) {
 
         var paymentChargedEvent = PaymentChargedEvent.builder()
                 .eventId(UUID.randomUUID().toString())
-                .paymentId(payment.getId())
-                .orderId(payment.getOrderId())
+                .paymentId(paymentId)
+                .orderId(orderId)
                 .build();
-
-        Payment savedPayment = paymentRepository.save(payment);
-        log.info("Charged payment with id: {}", savedPayment.getId());
 
         rabbitTemplate.convertAndSend(paymentChargedExchange, paymentChargedRoutingKey, paymentChargedEvent);
         log.info("Published paymentChargedEvent with id: {}", paymentChargedEvent.eventId());
 
-        return savedPayment;
     }
 
 }

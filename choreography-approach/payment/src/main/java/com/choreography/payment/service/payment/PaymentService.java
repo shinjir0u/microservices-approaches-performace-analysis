@@ -1,4 +1,4 @@
-package com.choreography.payment.service;
+package com.choreography.payment.service.payment;
 
 import com.choreography.payment.model.payment.Payment;
 

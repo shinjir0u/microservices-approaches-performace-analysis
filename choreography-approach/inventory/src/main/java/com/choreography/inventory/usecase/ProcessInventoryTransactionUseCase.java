@@ -10,7 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
-public class InventoryTransactionUseCase {
+public class ProcessInventoryTransactionUseCase {
 
     private final TransactionService transactionService;
 
