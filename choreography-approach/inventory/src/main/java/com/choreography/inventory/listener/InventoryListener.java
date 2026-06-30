@@ -1,6 +1,6 @@
 package com.choreography.inventory.listener;
 
-import com.choreography.inventory.events.order.OrderCreatedEvent;
+import com.choreography.inventory.event.order.OrderCreatedEvent;
 import com.choreography.inventory.service.rabbit.RabbitService;
 import com.choreography.inventory.usecase.InventoryTransactionUseCase;
 import lombok.RequiredArgsConstructor;

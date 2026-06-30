@@ -1,6 +1,6 @@
 package com.choreography.inventory.service.transaction;
 
-import com.choreography.inventory.events.order.OrderCreatedEvent;
+import com.choreography.inventory.event.order.OrderCreatedEvent;
 import com.choreography.inventory.model.inventory.Item;
 import com.choreography.inventory.model.inventory.Transaction;
 import com.choreography.inventory.model.inventory.type.TransactionStatus;

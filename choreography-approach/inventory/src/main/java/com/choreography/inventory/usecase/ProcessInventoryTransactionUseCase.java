@@ -1,6 +1,6 @@
 package com.choreography.inventory.usecase;
 
-import com.choreography.inventory.events.order.OrderCreatedEvent;
+import com.choreography.inventory.event.order.OrderCreatedEvent;
 import com.choreography.inventory.model.processedEvent.type.EventStatus;
 import com.choreography.inventory.service.processedEvent.ProcessedEventService;
 import com.choreography.inventory.service.transaction.TransactionService;

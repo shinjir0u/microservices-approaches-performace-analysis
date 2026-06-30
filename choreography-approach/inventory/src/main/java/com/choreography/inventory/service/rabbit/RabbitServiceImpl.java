@@ -1,6 +1,6 @@
 package com.choreography.inventory.service.rabbit;
 
-import com.choreography.inventory.events.inventory.InventoryReservedEvent;
+import com.choreography.inventory.event.inventory.InventoryReservedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
