@@ -24,7 +24,7 @@ public class ProcessedEventServiceImpl implements ProcessedEventService {
     public void saveAppEvent(AppEvent event, EventStatus eventStatus) {
 
         ProcessedEvent processedEvent = ProcessedEvent
-                .builder().id(UUID.fromString(event.eventId()))
+                .builder().eventId(UUID.fromString(event.eventId()))
                 .name(event.getClass().getSimpleName())
                 .orderId(event.orderId())
                 .status(eventStatus)

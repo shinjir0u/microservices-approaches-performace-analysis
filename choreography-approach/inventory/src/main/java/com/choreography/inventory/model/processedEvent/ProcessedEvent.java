@@ -19,7 +19,11 @@ import java.util.UUID;
 public class ProcessedEvent {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
+
+    @Column(name = "event_id")
+    private UUID eventId;
 
     private String name;
 
