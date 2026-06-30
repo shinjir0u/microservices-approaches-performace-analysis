@@ -1,6 +1,6 @@
 package com.choreography.payment.service.processedEvent;
 
-import com.choreography.payment.events.order.OrderCreatedEvent;
+import com.choreography.payment.event.AppEvent;
 import com.choreography.payment.model.processedEvent.ProcessedEvent;
 import com.choreography.payment.model.processedEvent.type.EventStatus;
 import com.choreography.payment.repository.ProcessedEventRepository;
@@ -21,17 +21,17 @@ public class ProcessedEventServiceImpl implements ProcessedEventService {
 
     @Override
     @Transactional
-    public void saveProcessedEvent(OrderCreatedEvent orderCreatedEvent, EventStatus eventStatus) {
+    public void saveProcessedEvent(AppEvent event, EventStatus eventStatus) {
         ProcessedEvent processedEvent = ProcessedEvent
                 .builder()
-                .id(UUID.fromString(orderCreatedEvent.eventId()))
-                .name(orderCreatedEvent.getClass().getName())
-                .orderId(orderCreatedEvent.orderId())
-                .status(EventStatus.SUCCESS)
+                .id(UUID.fromString(event.eventId()))
+                .name(event.getClass().getName())
+                .orderId(event.orderId())
+                .status(eventStatus)
                 .processedAt(Instant.now())
                 .build();
         ProcessedEvent savedProcessEvent = processedEventRepository.save(processedEvent);
-        log.info("Processed orderCreatedEvent with order id: {}", savedProcessEvent.getOrderId());
+        log.info("Processed {} with order id: {}", event.getClass().getName(), savedProcessEvent.getOrderId());
     }
 
 }

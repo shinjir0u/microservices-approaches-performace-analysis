@@ -1,6 +1,6 @@
 package com.choreography.payment.usecase;
 
-import com.choreography.payment.events.order.OrderCreatedEvent;
+import com.choreography.payment.event.order.OrderCreatedEvent;
 import com.choreography.payment.model.payment.Payment;
 import com.choreography.payment.model.processedEvent.type.EventStatus;
 import com.choreography.payment.service.payment.PaymentService;

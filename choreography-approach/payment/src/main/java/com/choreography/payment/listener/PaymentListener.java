@@ -1,6 +1,6 @@
 package com.choreography.payment.listener;
 
-import com.choreography.payment.events.order.OrderCreatedEvent;
+import com.choreography.payment.event.order.OrderCreatedEvent;
 import com.choreography.payment.model.payment.Payment;
 import com.choreography.payment.service.rabbit.RabbitService;
 import com.choreography.payment.usecase.ChargePaymentUseCase;
