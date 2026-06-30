@@ -1,6 +1,5 @@
 package com.choreography.order.service.order;
 
-import com.choreography.order.model.dto.OrderRequest;
 import com.choreography.order.model.order.Order;
 import com.choreography.order.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
@@ -20,8 +19,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public Order createOrder(OrderRequest orderRequest) {
-        Order order = Order.from(orderRequest);
+    public Order saveOrder(Order order) {
         Order savedOrder = orderRepository.save(order);
 
         log.info("Created order with id: {}", savedOrder.getId());
