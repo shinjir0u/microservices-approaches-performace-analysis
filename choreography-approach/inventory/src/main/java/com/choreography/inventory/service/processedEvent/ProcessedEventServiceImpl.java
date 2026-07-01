@@ -25,13 +25,13 @@ public class ProcessedEventServiceImpl implements ProcessedEventService {
         ProcessedEvent processedEvent = ProcessedEvent
                 .builder()
                 .eventId(UUID.fromString(event.eventId()))
-                .name(event.getClass().getName())
+                .name(event.getClass().getSimpleName())
                 .orderId(event.orderId())
                 .status(eventStatus)
                 .processedAt(Instant.now())
                 .build();
         ProcessedEvent savedProcessEvent = processedEventRepository.save(processedEvent);
-        log.info("Processed {} with order id: {}", event.getClass().getName(), savedProcessEvent.getOrderId());
+        log.info("Processed {} with order id: {}", event.getClass().getSimpleName(), savedProcessEvent.getOrderId());
     }
 
 }
