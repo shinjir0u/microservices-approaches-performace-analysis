@@ -4,7 +4,6 @@ import com.choreography.payment.model.payment.Payment;
 import com.choreography.payment.repository.PaymentRepository;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -19,7 +18,10 @@ public class PaymentServiceImpl implements PaymentService {
 
     private final PaymentRepository paymentRepository;
 
-    private final RabbitTemplate rabbitTemplate;
+    @Override
+    public Payment getPaymentByOrderId(UUID orderId) {
+        return paymentRepository.findByOrderId(orderId).orElseThrow(IllegalArgumentException::new);
+    }
 
     @Override
     @Transactional

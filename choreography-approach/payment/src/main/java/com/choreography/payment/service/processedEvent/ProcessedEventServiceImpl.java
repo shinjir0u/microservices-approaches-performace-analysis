@@ -20,6 +20,11 @@ public class ProcessedEventServiceImpl implements ProcessedEventService {
     private final ProcessedEventRepository processedEventRepository;
 
     @Override
+    public boolean existsByEventId(UUID eventId) {
+        return processedEventRepository.existsByEventId(eventId);
+    }
+
+    @Override
     @Transactional
     public void saveProcessedEvent(DomainEvent event, EventStatus eventStatus) {
         ProcessedEvent processedEvent = ProcessedEvent

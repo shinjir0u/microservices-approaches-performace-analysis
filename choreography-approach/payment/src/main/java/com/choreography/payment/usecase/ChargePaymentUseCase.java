@@ -9,6 +9,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
 @Service
 @RequiredArgsConstructor
 public class ChargePaymentUseCase {
@@ -19,6 +21,10 @@ public class ChargePaymentUseCase {
 
     @Transactional
     public Payment execute(OrderCreatedEvent orderCreatedEvent) {
+
+        boolean eventProcessed = processedEventService.existsByEventId(UUID.fromString(orderCreatedEvent.eventId()));
+        if (eventProcessed)
+            return paymentService.getPaymentByOrderId(orderCreatedEvent.orderId());
 
         Payment savedPayment = paymentService.chargePayment(orderCreatedEvent.orderId(), orderCreatedEvent.totalAmount());
         processedEventService.saveProcessedEvent(orderCreatedEvent, EventStatus.SUCCESS);

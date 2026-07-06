@@ -7,6 +7,8 @@ import java.util.UUID;
 
 public interface PaymentService {
 
-    public Payment chargePayment(UUID orderId, BigDecimal amount);
+    Payment getPaymentByOrderId(UUID orderId);
+
+    Payment chargePayment(UUID orderId, BigDecimal amount);
 
 }
