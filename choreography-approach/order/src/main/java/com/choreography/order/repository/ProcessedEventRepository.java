@@ -9,6 +9,8 @@ import java.util.UUID;
 @Repository
 public interface ProcessedEventRepository extends JpaRepository<ProcessedEvent, UUID> {
 
-    Boolean existsByOrderIdAndName(UUID orderId, String eventName);
+    boolean existsByEventId(UUID eventId);
+
+    boolean existsByOrderIdAndName(UUID orderId, String eventName);
 
 }

@@ -32,8 +32,8 @@ public class OrderServiceImpl implements OrderService {
             return;
         }
 
-        Boolean inventoryReservedEventExists = processedEventRepository.existsByOrderIdAndName(orderId, INVENTORY_RESERVED_EVENT);
-        Boolean paymentChargedEventExists = processedEventRepository.existsByOrderIdAndName(orderId, PAYMENT_CHARGED_EVENT);
+        boolean inventoryReservedEventExists = processedEventRepository.existsByOrderIdAndName(orderId, INVENTORY_RESERVED_EVENT);
+        boolean paymentChargedEventExists = processedEventRepository.existsByOrderIdAndName(orderId, PAYMENT_CHARGED_EVENT);
 
         if (inventoryReservedEventExists && paymentChargedEventExists) {
             order.setStatus(Status.SUCCESS);
@@ -44,7 +44,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public Order getOrderById(UUID orderId) {
-        return orderRepository.findById(orderId).orElseThrow(IllegalAccessError::new);
+        return orderRepository.findById(orderId).orElseThrow(IllegalArgumentException::new);
     }
 
     @Override
