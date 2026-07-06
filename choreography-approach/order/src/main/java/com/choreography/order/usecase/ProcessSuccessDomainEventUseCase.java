@@ -23,8 +23,10 @@ public class ProcessSuccessDomainEventUseCase {
     @Transactional
     public void execute(DomainEvent domainEvent) {
         boolean eventProcessed = processedEventService.existsByEventId(UUID.fromString(domainEvent.eventId()));
-        if (eventProcessed)
+        if (eventProcessed) {
+            log.info("{} with id: {} is already processed.", domainEvent.getClass().getSimpleName(), domainEvent.eventId());
             return;
+        }
 
         processedEventService.saveDomainEvent(domainEvent, EventStatus.SUCCESS);
         orderService.processReceivedDomainEvent(domainEvent.orderId());

@@ -6,11 +6,13 @@ import com.choreography.payment.model.processedEvent.type.EventStatus;
 import com.choreography.payment.service.payment.PaymentService;
 import com.choreography.payment.service.processedEvent.ProcessedEventService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.UUID;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ChargePaymentUseCase {
@@ -23,8 +25,10 @@ public class ChargePaymentUseCase {
     public Payment execute(OrderCreatedEvent orderCreatedEvent) {
 
         boolean eventProcessed = processedEventService.existsByEventId(UUID.fromString(orderCreatedEvent.eventId()));
-        if (eventProcessed)
+        if (eventProcessed) {
+            log.info("{} with id: {} is already processed.", orderCreatedEvent.getClass().getSimpleName(), orderCreatedEvent.eventId());
             return paymentService.getPaymentByOrderId(orderCreatedEvent.orderId());
+        }
 
         Payment savedPayment = paymentService.chargePayment(orderCreatedEvent.orderId(), orderCreatedEvent.totalAmount());
         processedEventService.saveProcessedEvent(orderCreatedEvent, EventStatus.SUCCESS);

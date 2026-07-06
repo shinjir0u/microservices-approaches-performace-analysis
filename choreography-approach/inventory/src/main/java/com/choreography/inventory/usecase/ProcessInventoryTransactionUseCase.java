@@ -5,9 +5,13 @@ import com.choreography.inventory.model.processedEvent.type.EventStatus;
 import com.choreography.inventory.service.processedEvent.ProcessedEventService;
 import com.choreography.inventory.service.transaction.TransactionService;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.UUID;
+
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ProcessInventoryTransactionUseCase {
@@ -18,6 +22,12 @@ public class ProcessInventoryTransactionUseCase {
 
     @Transactional
     public void execute(OrderCreatedEvent orderCreatedEvent) {
+        boolean eventProcessed = processedEventService.existsByEventId(UUID.fromString(orderCreatedEvent.eventId()));
+        if (eventProcessed) {
+            log.info("{} with id: {} is already processed.", orderCreatedEvent.getClass().getSimpleName(), orderCreatedEvent.eventId());
+            return;
+        }
+
         transactionService.addTransactions(orderCreatedEvent);
         processedEventService.saveProcessedEvent(orderCreatedEvent, EventStatus.SUCCESS);
     }
