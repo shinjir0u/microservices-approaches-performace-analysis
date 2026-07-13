@@ -28,7 +28,12 @@ public class ProcessInventoryTransactionUseCase {
             return;
         }
 
-        transactionService.addTransactions(orderCreatedEvent);
-        processedEventService.saveProcessedEvent(orderCreatedEvent, EventStatus.SUCCESS);
+        try {
+            transactionService.addTransactions(orderCreatedEvent);
+            processedEventService.saveProcessedEvent(orderCreatedEvent, EventStatus.SUCCESS);
+        } catch (IllegalArgumentException exception) {
+            processedEventService.saveProcessedEvent(orderCreatedEvent, EventStatus.FAIL);
+            throw exception;
+        }
     }
 }

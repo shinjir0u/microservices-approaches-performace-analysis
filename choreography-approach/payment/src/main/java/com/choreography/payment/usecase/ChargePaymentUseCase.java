@@ -30,8 +30,14 @@ public class ChargePaymentUseCase {
             return paymentService.getPaymentByOrderId(orderCreatedEvent.orderId());
         }
 
-        Payment savedPayment = paymentService.chargePayment(orderCreatedEvent.orderId(), orderCreatedEvent.totalAmount());
-        processedEventService.saveProcessedEvent(orderCreatedEvent, EventStatus.SUCCESS);
+        Payment savedPayment = null;
+        try {
+            savedPayment = paymentService.chargePayment(orderCreatedEvent.orderId(), orderCreatedEvent.totalAmount());
+            processedEventService.saveProcessedEvent(orderCreatedEvent, EventStatus.SUCCESS);
+        } catch (IllegalArgumentException exception) {
+            processedEventService.saveProcessedEvent(orderCreatedEvent, EventStatus.FAIL);
+            throw exception;
+        }
         return savedPayment;
 
     }
