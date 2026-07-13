@@ -14,7 +14,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class RevertInventoryTransaction {
+public class RevertInventoryTransactionUseCase {
 
     private final TransactionService transactionService;
 
@@ -28,8 +28,8 @@ public class RevertInventoryTransaction {
             return;
         }
 
-        processedEventService.saveProcessedEvent(paymentFailedEvent, EventStatus.SUCCESS);
         transactionService.revertTransactions(paymentFailedEvent);
+        processedEventService.saveProcessedEvent(paymentFailedEvent, EventStatus.SUCCESS);
     }
 
 }

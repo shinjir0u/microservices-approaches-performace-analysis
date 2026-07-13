@@ -1,8 +1,10 @@
 package com.choreography.inventory.listener;
 
 import com.choreography.inventory.event.order.OrderCreatedEvent;
+import com.choreography.inventory.event.payment.PaymentFailedEvent;
 import com.choreography.inventory.service.rabbit.RabbitService;
 import com.choreography.inventory.usecase.ProcessInventoryTransactionUseCase;
+import com.choreography.inventory.usecase.RevertInventoryTransactionUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -17,6 +19,8 @@ public class InventoryListener {
 
     private final ProcessInventoryTransactionUseCase inventoryTransactionUseCase;
 
+    private final RevertInventoryTransactionUseCase revertInventoryTransactionUseCase;
+
     @RabbitListener(queues = "${spring.rabbitmq.order.created.inventory.queue}")
     public void processInventoryTransaction(OrderCreatedEvent orderCreatedEvent) {
         log.info("Received orderCreatedEvent with id: {}", orderCreatedEvent.eventId());
@@ -27,6 +31,12 @@ public class InventoryListener {
         } catch (IllegalArgumentException exception) {
             rabbitService.publishInventoryFailedEvent(orderCreatedEvent.orderId(), "Insufficient quantity for order.");
         }
+    }
+
+    public void revertInventoryTransaction(PaymentFailedEvent paymentFailedEvent) {
+        log.info("Received PaymentFailedEvent with id: {}", paymentFailedEvent.eventId());
+
+        revertInventoryTransactionUseCase.execute(paymentFailedEvent);
     }
 
 }
