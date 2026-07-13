@@ -20,7 +20,12 @@ public class InventoryListener {
     @RabbitListener(queues = "${spring.rabbitmq.order.created.inventory.queue}")
     public void processInventoryTransaction(OrderCreatedEvent orderCreatedEvent) {
         log.info("Received orderCreatedEvent with id: {}", orderCreatedEvent.eventId());
-        inventoryTransactionUseCase.execute(orderCreatedEvent);
+
+        try {
+            inventoryTransactionUseCase.execute(orderCreatedEvent);
+        } catch (IllegalArgumentException exception) {
+            rabbitService.publishInventoryFailedEvent(orderCreatedEvent.orderId(), "Insufficient quantity for order.");
+        }
         rabbitService.publishInventoryReservedEvent(orderCreatedEvent.orderId());
     }
 

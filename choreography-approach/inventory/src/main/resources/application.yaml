@@ -29,6 +29,13 @@ spring:
         queue: ${INVENTORY_RESERVED_QUEUE}
         exchange: ${INVENTORY_RESERVED_EXCHANGE}
         routingKey: ${INVENTORY_RESERVED_ROUTINGKEY}
+      failed:
+        order:
+          queue: ${INVENTORY_FAILED_ORDER_QUEUE}
+        payment:
+          queue: ${INVENTORY_FAILED_PAYMENT_QUEUE}
+        exchange: ${INVENTORY_FAILED_EXCHANGE}
+        routingKey: ${INVENTORY_FAILED_ROUTINGKEY}
 
 server:
   port: 8080

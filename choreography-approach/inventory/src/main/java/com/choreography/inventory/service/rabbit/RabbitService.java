@@ -6,4 +6,5 @@ public interface RabbitService {
 
     void publishInventoryReservedEvent(UUID orderId);
 
+    void publishInventoryFailedEvent(UUID orderId, String reason);
 }

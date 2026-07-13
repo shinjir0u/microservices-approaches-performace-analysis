@@ -1,5 +1,6 @@
 package com.choreography.inventory.service.rabbit;
 
+import com.choreography.inventory.event.inventory.InventoryFailedEvent;
 import com.choreography.inventory.event.inventory.InventoryReservedEvent;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -20,6 +21,12 @@ public class RabbitServiceImpl implements RabbitService {
     @Value("${spring.rabbitmq.inventory.reserved.routingKey}")
     private String inventoryReservedRoutingKey;
 
+    @Value("${spring.rabbitmq.inventory.failed.exchange}")
+    private String inventoryFailedExchange;
+
+    @Value("${spring.rabbitmq.inventory.failed.routingKey}")
+    private String inventoryFailedRoutingKey;
+
     private final RabbitTemplate rabbitTemplate;
 
     public void publishInventoryReservedEvent(UUID orderId) {
@@ -31,6 +38,20 @@ public class RabbitServiceImpl implements RabbitService {
 
         rabbitTemplate.convertAndSend(inventoryReservedExchange, inventoryReservedRoutingKey, inventoryReservedEvent);
         log.info("Published inventoryReservedEvent with id: {}", inventoryReservedEvent.eventId());
+    }
+
+    @Override
+    public void publishInventoryFailedEvent(UUID orderId, String reason) {
+        InventoryFailedEvent inventoryFailedEvent = InventoryFailedEvent
+                .builder()
+                .eventId(UUID.randomUUID().toString())
+                .orderId(orderId)
+                .reason(reason)
+                .build();
+
+        rabbitTemplate.convertAndSend(inventoryFailedRoutingKey, inventoryFailedExchange, inventoryFailedEvent);
+        log.info("Published inventoryFailedEvent with id: {}", inventoryFailedEvent.eventId());
+
     }
 
 }
