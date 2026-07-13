@@ -28,7 +28,7 @@ public class RevertInventoryTransaction {
             return;
         }
 
-        processedEventService.saveProcessedEvent(paymentFailedEvent, EventStatus.FAIL);
+        processedEventService.saveProcessedEvent(paymentFailedEvent, EventStatus.SUCCESS);
         transactionService.revertTransactions(paymentFailedEvent);
     }
 

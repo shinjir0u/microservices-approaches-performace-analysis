@@ -29,7 +29,7 @@ public class RevertPaymentUseCase {
         }
 
         paymentService.revertPayment(inventoryFailedEvent.orderId());
-        processedEventService.saveProcessedEvent(inventoryFailedEvent, EventStatus.FAIL);
+        processedEventService.saveProcessedEvent(inventoryFailedEvent, EventStatus.SUCCESS);
     }
 
 }
