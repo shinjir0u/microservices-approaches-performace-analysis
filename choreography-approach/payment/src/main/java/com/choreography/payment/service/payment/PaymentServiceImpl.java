@@ -37,4 +37,14 @@ public class PaymentServiceImpl implements PaymentService {
         return savedPayment;
     }
 
+    @Override
+    @Transactional
+    public void revertPayment(UUID orderId) {
+        var payment = getPaymentByOrderId(orderId);
+        var updatedPayment = payment.toBuilder().amount(null).build();
+
+        Payment savedPayment = paymentRepository.save(updatedPayment);
+        log.info("Reverted payment with id: {}", savedPayment.getId());
+    }
+
 }
