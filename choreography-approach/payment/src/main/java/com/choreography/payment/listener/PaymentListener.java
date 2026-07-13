@@ -21,8 +21,13 @@ public class PaymentListener {
     @RabbitListener(queues = "${spring.rabbitmq.order.created.payment.queue}")
     public void receiveOrder(OrderCreatedEvent orderCreatedEvent) {
         log.info("Received orderCreatedEvent with id: {}", orderCreatedEvent.eventId());
-        Payment payment = chargePaymentUseCase.execute(orderCreatedEvent);
-        rabbitService.publishPaymentChargedEvent(payment.getId(), payment.getOrderId());
+
+        try {
+            Payment payment = chargePaymentUseCase.execute(orderCreatedEvent);
+            rabbitService.publishPaymentChargedEvent(payment.getId(), payment.getOrderId());
+        } catch (IllegalArgumentException exception) {
+            rabbitService.publishPaymentFailedEvent(orderCreatedEvent.orderId(), "Invalid amount.");
+        }
     }
 
 }

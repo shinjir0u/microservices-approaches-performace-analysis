@@ -6,4 +6,5 @@ public interface RabbitService {
 
     void publishPaymentChargedEvent(UUID paymentId, UUID orderId);
 
+    void publishPaymentFailedEvent(UUID orderId, String reason);
 }

@@ -26,6 +26,9 @@ public class PaymentServiceImpl implements PaymentService {
     @Override
     @Transactional
     public Payment chargePayment(UUID orderId, BigDecimal amount) {
+        if (amount.compareTo(BigDecimal.ZERO) < 0)
+            throw new IllegalArgumentException("Amount must be greater than zero");
+
         var payment = Payment.builder().orderId(orderId).amount(amount).paidAt(Instant.now()).build();
 
         Payment savedPayment = paymentRepository.save(payment);

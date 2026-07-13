@@ -23,10 +23,10 @@ public class InventoryListener {
 
         try {
             inventoryTransactionUseCase.execute(orderCreatedEvent);
+            rabbitService.publishInventoryReservedEvent(orderCreatedEvent.orderId());
         } catch (IllegalArgumentException exception) {
             rabbitService.publishInventoryFailedEvent(orderCreatedEvent.orderId(), "Insufficient quantity for order.");
         }
-        rabbitService.publishInventoryReservedEvent(orderCreatedEvent.orderId());
     }
 
 }
