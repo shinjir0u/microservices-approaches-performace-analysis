@@ -24,6 +24,10 @@ spring:
       created:
         payment:
           queue: ${ORDER_CREATED_PAYMENT_QUEUE}
+    inventory:
+      failed:
+        payment:
+          queue: ${INVENTORY_FAILED_PAYMENT_QUEUE}
     payment:
       charged:
         queue: ${PAYMENT_CHARGED_QUEUE}
