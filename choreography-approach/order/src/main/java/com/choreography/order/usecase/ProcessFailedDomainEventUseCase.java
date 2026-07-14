@@ -14,21 +14,23 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ProcessSucceededDomainEventUseCase {
-
-    private final ProcessedEventService processedEventService;
+public class ProcessFailedDomainEventUseCase {
 
     private final OrderService orderService;
 
+    private final ProcessedEventService processedEventService;
+
     @Transactional
     public void execute(DomainEvent domainEvent) {
+        String eventName = domainEvent.getClass().getSimpleName();
+
         boolean eventProcessed = processedEventService.existsByEventId(UUID.fromString(domainEvent.eventId()));
         if (eventProcessed) {
-            log.info("{} with id: {} is already processed.", domainEvent.getClass().getSimpleName(), domainEvent.eventId());
+            log.info("{} with id: {} is already processed.", eventName, domainEvent.eventId());
             return;
         }
 
-        orderService.processSucceededDomainEvent(domainEvent.orderId());
+        orderService.processFailedDomainEvent(domainEvent.orderId(), eventName);
         processedEventService.saveDomainEvent(domainEvent, EventStatus.SUCCESS);
     }
 

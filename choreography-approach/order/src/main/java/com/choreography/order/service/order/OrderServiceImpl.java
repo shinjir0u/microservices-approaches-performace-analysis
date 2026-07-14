@@ -20,13 +20,12 @@ public class OrderServiceImpl implements OrderService {
 
     private final ProcessedEventRepository processedEventRepository;
 
-    @Transactional
     @Override
     public void processSucceededDomainEvent(UUID orderId) {
         String INVENTORY_RESERVED_EVENT = "InventoryReservedEvent";
         String PAYMENT_CHARGED_EVENT = "PaymentChargedEvent";
 
-        Order order = this.getOrderById(orderId);
+        Order order = getOrderById(orderId);
 
         if (order.getStatus() != Status.PENDING) {
             return;
@@ -39,6 +38,22 @@ public class OrderServiceImpl implements OrderService {
             order.setStatus(Status.SUCCESS);
             orderRepository.save(order);
             log.info("Update status of order with id: {} to SUCCESS", orderId);
+        }
+    }
+
+    @Override
+    public void processFailedDomainEvent(UUID orderId, String domainEventName) {
+        String INVENTORY_FAILED_EVENT = "InventoryFailedEvent";
+        String PAYMENT_FAILED_EVENT = "PaymentFailedEvent";
+
+        Order order = getOrderById(orderId);
+        if (order.getStatus() != Status.PENDING)
+            return;
+
+        if (INVENTORY_FAILED_EVENT.equals(domainEventName) || PAYMENT_FAILED_EVENT.equals(domainEventName)) {
+            order.setStatus(Status.FAILED);
+            orderRepository.save(order);
+            log.info("Update status of order with id: {} to FAILED", orderId);
         }
     }
 
