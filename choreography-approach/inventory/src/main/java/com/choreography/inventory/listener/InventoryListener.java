@@ -33,6 +33,7 @@ public class InventoryListener {
         }
     }
 
+    @RabbitListener(queues = "${spring.rabbitmq.payment.failed.inventory.queue}")
     public void revertInventoryTransaction(PaymentFailedEvent paymentFailedEvent) {
         log.info("Received PaymentFailedEvent with id: {}", paymentFailedEvent.eventId());
 
