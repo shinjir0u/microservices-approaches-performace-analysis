@@ -49,7 +49,7 @@ public class RabbitServiceImpl implements RabbitService {
                 .reason(reason)
                 .build();
 
-        rabbitTemplate.convertAndSend(inventoryFailedRoutingKey, inventoryFailedExchange, inventoryFailedEvent);
+        rabbitTemplate.convertAndSend(inventoryFailedExchange, inventoryFailedRoutingKey, inventoryFailedEvent);
         log.info("Published inventoryFailedEvent with id: {}", inventoryFailedEvent.eventId());
 
     }
