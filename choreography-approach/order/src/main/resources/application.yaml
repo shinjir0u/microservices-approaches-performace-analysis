@@ -31,13 +31,15 @@ spring:
     payment:
       charged:
         queue: ${PAYMENT_CHARGED_QUEUE}
-        exchange: ${PAYMENT_CHARGED_EXCHANGE}
-        routingKey: ${PAYMENT_CHARGED_ROUTINGKEY}
+      failed:
+        order:
+          queue: ${PAYMENT_FAILED_ORDER_QUEUE}
     inventory:
       reserved:
         queue: ${INVENTORY_RESERVED_QUEUE}
-        exchange: ${INVENTORY_RESERVED_EXCHANGE}
-        routingKey: ${INVENTORY_RESERVED_ROUTINGKEY}
+      failed:
+        order:
+          queue: ${INVENTORY_FAILED_ORDER_QUEUE}
 
 server:
   port: 8080
