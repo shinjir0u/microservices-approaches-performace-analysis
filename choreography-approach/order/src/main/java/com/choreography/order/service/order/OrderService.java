@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public interface OrderService {
 
-    void processReceivedDomainEvent(UUID orderId);
+    void processSucceededDomainEvent(UUID orderId);
 
     Order getOrderById(UUID orderId);
 

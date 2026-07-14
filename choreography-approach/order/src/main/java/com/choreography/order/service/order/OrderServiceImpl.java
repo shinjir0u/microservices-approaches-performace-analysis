@@ -22,7 +22,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Transactional
     @Override
-    public void processReceivedDomainEvent(UUID orderId) {
+    public void processSucceededDomainEvent(UUID orderId) {
         String INVENTORY_RESERVED_EVENT = "InventoryReservedEvent";
         String PAYMENT_CHARGED_EVENT = "PaymentChargedEvent";
 

@@ -14,7 +14,7 @@ import java.util.UUID;
 @Slf4j
 @Service
 @RequiredArgsConstructor
-public class ProcessSuccessDomainEventUseCase {
+public class ProcessSucceededDomainEventUseCase {
 
     private final ProcessedEventService processedEventService;
 
@@ -29,7 +29,7 @@ public class ProcessSuccessDomainEventUseCase {
         }
 
         processedEventService.saveDomainEvent(domainEvent, EventStatus.SUCCESS);
-        orderService.processReceivedDomainEvent(domainEvent.orderId());
+        orderService.processSucceededDomainEvent(domainEvent.orderId());
     }
 
 }
