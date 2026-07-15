@@ -34,7 +34,7 @@ public class Item {
     }
 
     public Item subtractQuantity(Integer quantity) {
-        if (this.quantity < 0)
+        if (this.quantity <= 0)
             throw new IllegalArgumentException("Insufficient quantity.");
 
         this.quantity -= quantity;

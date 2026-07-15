@@ -28,8 +28,8 @@ public class ProcessSucceededDomainEventUseCase {
             return;
         }
 
-        orderService.processSucceededDomainEvent(domainEvent.orderId());
         processedEventService.saveDomainEvent(domainEvent, EventStatus.SUCCESS);
+        orderService.processSucceededDomainEvent(domainEvent.orderId());
     }
 
 }
