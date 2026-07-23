@@ -10,3 +10,6 @@ scrape_configs:
           - 'order:8080'
           - 'inventory:8080'
           - 'payment:8080'
+  - job_name: 'rabbitmq-broker'
+    static_configs:
+      - targets: [ 'my-rabbitmq:15692' ]
