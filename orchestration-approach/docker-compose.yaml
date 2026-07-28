@@ -1,0 +1,43 @@
+services:
+  order:
+    build:
+      context: ./order
+      dockerfile: Dockerfile
+    container_name: order
+    ports:
+      - "8081:8080"
+    env_file:
+      - ".env"
+      - "../infrastructure/order/.env"
+    networks:
+      - my-global-network
+
+  payment:
+    build:
+      context: ./payment
+      dockerfile: Dockerfile
+    container_name: payment
+    ports:
+      - "8082:8080"
+    env_file:
+      - ".env"
+      - "../infrastructure/payment/.env"
+    networks:
+      - my-global-network
+
+  inventory:
+    build:
+      context: ./inventory
+      dockerfile: Dockerfile
+    container_name: inventory
+    ports:
+      - "8083:8080"
+    env_file:
+      - ".env"
+      - "../infrastructure/inventory/.env"
+    networks:
+      - my-global-network
+
+networks:
+  my-global-network:
+    external: true
