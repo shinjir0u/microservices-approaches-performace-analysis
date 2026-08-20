@@ -11,6 +11,6 @@ public interface ProcessedEventRepository extends JpaRepository<ProcessedEvent, 
 
     boolean existsByEventId(UUID eventId);
 
-    boolean existsByNameAndOrderId(String eventName, UUID orderId);
+    boolean existsByOrderIdAndName(UUID orderId, String eventName);
 
 }

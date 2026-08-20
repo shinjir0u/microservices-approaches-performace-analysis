@@ -41,20 +41,5 @@ spring:
         exchange: ${INVENTORY_FAILED_EXCHANGE}
         routingKey: ${INVENTORY_FAILED_ROUTINGKEY}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "health,info,prometheus"
-  endpoint:
-    prometheus:
-      enabled: true
-  metrics:
-    tags:
-      application: "choreography-inventory"
-    distribution:
-      percentiles-histogram:
-        http.server.requests: true
-
 server:
   port: 8080

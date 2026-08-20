@@ -41,20 +41,5 @@ spring:
         order:
           queue: ${INVENTORY_FAILED_ORDER_QUEUE}
 
-management:
-  endpoints:
-    web:
-      exposure:
-        include: "health,info,prometheus"
-  endpoint:
-    prometheus:
-      enabled: true
-  metrics:
-    tags:
-      application: "choreography-order"
-    distribution:
-      percentiles-histogram:
-        http.server.requests: true
-
 server:
   port: 8080
