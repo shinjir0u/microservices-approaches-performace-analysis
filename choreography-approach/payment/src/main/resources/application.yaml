@@ -41,5 +41,13 @@ spring:
         exchange: ${PAYMENT_FAILED_EXCHANGE}
         routingKey: ${PAYMENT_FAILED_ROUTINGKEY}
 
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://jaeger:4317
+
 server:
   port: 8080

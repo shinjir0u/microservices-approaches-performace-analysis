@@ -24,6 +24,16 @@ public class RabbitMQConfiguration {
     @Value("${spring.rabbitmq.order.created.routingKey}")
     private String orderCreatedRoutingKey;
 
+    @Value("${spring.rabbitmq.order.status.check.queue}")
+    private String orderStatusCheckQueue;
+
+    @Value("${spring.rabbitmq.order.status.check.exchange}")
+    private String orderStatusCheckExchange;
+
+    @Value("${spring.rabbitmq.order.status.check.routingKey}")
+    private String orderStatusCheckRoutingKey;
+
+
     @Bean
     public Queue paymentQueue() {
         return new Queue(orderCreatedPaymentQueue);
@@ -32,6 +42,11 @@ public class RabbitMQConfiguration {
     @Bean
     public Queue inventoryQueue() {
         return new Queue(orderCreatedInventoryQueue);
+    }
+
+    @Bean
+    public Queue orderStatusCheckQueue() {
+        return new Queue(orderStatusCheckQueue);
     }
 
     @Bean
@@ -47,6 +62,16 @@ public class RabbitMQConfiguration {
     @Bean
     public Binding bindInventoryQueue() {
         return BindingBuilder.bind(inventoryQueue()).to(exchange()).with(orderCreatedRoutingKey).noargs();
+    }
+
+    @Bean
+    public Exchange orderStatusCheckExchange() {
+        return new DirectExchange(orderStatusCheckExchange);
+    }
+
+    @Bean
+    public Binding bindOrderStatusCheckQueue() {
+        return BindingBuilder.bind(orderStatusCheckQueue()).to(orderStatusCheckExchange()).with(orderStatusCheckRoutingKey).noargs();
     }
 
     @Bean

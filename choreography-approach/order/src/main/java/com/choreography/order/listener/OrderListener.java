@@ -2,8 +2,10 @@ package com.choreography.order.listener;
 
 import com.choreography.order.event.inventory.InventoryFailedEvent;
 import com.choreography.order.event.inventory.InventoryReservedEvent;
+import com.choreography.order.event.order.OrderStatusCheckEvent;
 import com.choreography.order.event.payment.PaymentChargedEvent;
 import com.choreography.order.event.payment.PaymentFailedEvent;
+import com.choreography.order.service.order.OrderService;
 import com.choreography.order.usecase.ProcessFailedDomainEventUseCase;
 import com.choreography.order.usecase.ProcessSucceededDomainEventUseCase;
 import lombok.RequiredArgsConstructor;
@@ -19,6 +21,8 @@ public class OrderListener {
     private final ProcessSucceededDomainEventUseCase processSucceededDomainEventUseCase;
 
     private final ProcessFailedDomainEventUseCase processFailedDomainEventUseCase;
+
+    private final OrderService orderService;
 
     @RabbitListener(queues = "${spring.rabbitmq.payment.charged.queue}")
     public void receivePayment(PaymentChargedEvent paymentChargedEvent) {
@@ -42,5 +46,11 @@ public class OrderListener {
     public void receiveFailedInventoryTransaction(InventoryFailedEvent inventoryFailedEvent) {
         log.info("Received inventoryFailedEvent with id: {}", inventoryFailedEvent.eventId());
         processFailedDomainEventUseCase.execute(inventoryFailedEvent);
+    }
+
+    @RabbitListener(queues = "${spring.rabbitmq.order.status.check.queue}")
+    public void receiveOrderStatusCheckQueue(OrderStatusCheckEvent orderStatusCheckEvent) {
+        log.info("Received orderStatusCheckEvent with id: {}", orderStatusCheckEvent.eventId());
+        orderService.updateValidSucceededOrderStatus(orderStatusCheckEvent.orderId());
     }
 }

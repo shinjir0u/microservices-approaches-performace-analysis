@@ -1,6 +1,7 @@
 package com.choreography.order.service.rabbit;
 
 import com.choreography.order.event.order.OrderCreatedEvent;
+import com.choreography.order.event.order.OrderStatusCheckEvent;
 import com.choreography.order.model.order.Order;
 import com.choreography.order.model.processedEvent.type.EventStatus;
 import lombok.RequiredArgsConstructor;
@@ -21,6 +22,12 @@ public class RabbitServiceImpl implements RabbitService {
 
     @Value("${spring.rabbitmq.order.created.routingKey}")
     private String orderCreatedRoutingKey;
+
+    @Value("${spring.rabbitmq.order.status.check.exchange}")
+    private String orderStatusCheckExchange;
+
+    @Value("${spring.rabbitmq.order.status.check.routingKey}")
+    private String orderStatusCheckRoutingKey;
 
     private final RabbitTemplate rabbitTemplate;
 
@@ -43,6 +50,19 @@ public class RabbitServiceImpl implements RabbitService {
                 .build();
         rabbitTemplate.convertAndSend(orderCreatedExchange, orderCreatedRoutingKey, orderCreatedEvent);
         log.info("Published orderCreatedEvent with id: {}", orderCreatedEvent.eventId());
+
+    }
+
+    @Override
+    public void publishOrderStatusCheckEvent(UUID orderId) {
+
+        var orderStatusCheckEvent = OrderStatusCheckEvent.builder()
+                .eventId(UUID.randomUUID().toString())
+                .orderId(orderId)
+                .build();
+
+        rabbitTemplate.convertAndSend(orderStatusCheckExchange, orderStatusCheckRoutingKey, orderStatusCheckEvent);
+        log.info("Published orderStatusCheckEvent with id: {}", orderStatusCheckEvent.eventId());
 
     }
 

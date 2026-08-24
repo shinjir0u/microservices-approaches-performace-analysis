@@ -28,6 +28,11 @@ spring:
           queue: ${ORDER_CREATED_INVENTORY_QUEUE}
         exchange: ${ORDER_CREATED_EXCHANGE}
         routingKey: ${ORDER_CREATED_ROUTINGKEY}
+      status:
+        check:
+          queue: ${ORDER_STATUS_CHECK_QUEUE}
+          exchange: ${ORDER_STATUS_CHECK_EXCHANGE}
+          routingKey: ${ORDER_STATUS_CHECK_ROUTINGKEY}
     payment:
       charged:
         queue: ${PAYMENT_CHARGED_QUEUE}
@@ -40,6 +45,14 @@ spring:
       failed:
         order:
           queue: ${INVENTORY_FAILED_ORDER_QUEUE}
+
+management:
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    tracing:
+      endpoint: http://jaeger:4317
 
 server:
   port: 8080

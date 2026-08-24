@@ -2,8 +2,8 @@ package com.choreography.order.usecase;
 
 import com.choreography.order.event.DomainEvent;
 import com.choreography.order.model.processedEvent.type.EventStatus;
-import com.choreography.order.service.order.OrderService;
 import com.choreography.order.service.processedEvent.ProcessedEventService;
+import com.choreography.order.service.rabbit.RabbitService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -18,7 +18,7 @@ public class ProcessSucceededDomainEventUseCase {
 
     private final ProcessedEventService processedEventService;
 
-    private final OrderService orderService;
+    private final RabbitService rabbitService;
 
     @Transactional
     public void execute(DomainEvent domainEvent) {
@@ -29,7 +29,8 @@ public class ProcessSucceededDomainEventUseCase {
         }
 
         processedEventService.saveDomainEvent(domainEvent, EventStatus.SUCCESS);
-        orderService.processSucceededDomainEvent(domainEvent.orderId());
+        log.info("We processing event with order id {} to update status to success", domainEvent.eventId());
+        rabbitService.publishOrderStatusCheckEvent(domainEvent.orderId());
     }
 
 }

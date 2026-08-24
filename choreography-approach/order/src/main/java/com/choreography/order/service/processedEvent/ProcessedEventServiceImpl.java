@@ -35,7 +35,7 @@ public class ProcessedEventServiceImpl implements ProcessedEventService {
                 .status(eventStatus)
                 .processedAt(Instant.now())
                 .build();
-        ProcessedEvent savedProcessEvent = processedEventRepository.saveAndFlush(processedEvent);
+        ProcessedEvent savedProcessEvent = processedEventRepository.save(processedEvent);
         log.info("Processed {} with order id: {}", event.getClass().getSimpleName(), savedProcessEvent.getOrderId());
 
     }

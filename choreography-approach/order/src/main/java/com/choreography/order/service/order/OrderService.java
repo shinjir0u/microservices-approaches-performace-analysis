@@ -7,7 +7,7 @@ import java.util.UUID;
 
 public interface OrderService {
 
-    void processSucceededDomainEvent(UUID orderId);
+    void updateValidSucceededOrderStatus(UUID orderId);
 
     @Transactional
     void processFailedDomainEvent(UUID orderId, String domainEventName);

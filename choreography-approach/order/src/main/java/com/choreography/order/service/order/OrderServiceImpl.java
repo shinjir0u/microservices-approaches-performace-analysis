@@ -21,18 +21,25 @@ public class OrderServiceImpl implements OrderService {
     private final ProcessedEventRepository processedEventRepository;
 
     @Override
-    public void processSucceededDomainEvent(UUID orderId) {
+    public void updateValidSucceededOrderStatus(UUID orderId) {
         String INVENTORY_RESERVED_EVENT = "InventoryReservedEvent";
         String PAYMENT_CHARGED_EVENT = "PaymentChargedEvent";
 
         Order order = getOrderById(orderId);
 
-        if (order.getStatus() != Status.PENDING) {
+        if (order.getStatus() == Status.SUCCESS || order.getStatus() == Status.FAILED) {
+            log.info("Order with id: {} has already been handled", orderId);
             return;
         }
 
+        if (order.getStatus() != Status.PENDING)
+            return;
+
         boolean inventoryReservedEventExists = processedEventRepository.existsByOrderIdAndName(orderId, INVENTORY_RESERVED_EVENT);
         boolean paymentChargedEventExists = processedEventRepository.existsByOrderIdAndName(orderId, PAYMENT_CHARGED_EVENT);
+
+        log.info("Inventory reserved {}", inventoryReservedEventExists);
+        log.info("Payment charged {}", paymentChargedEventExists);
 
         if (inventoryReservedEventExists && paymentChargedEventExists) {
             order.setStatus(Status.SUCCESS);
