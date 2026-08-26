@@ -85,7 +85,6 @@ services:
 networks:
   my-global-network:
     driver: bridge
-    external: true
 
 volumes:
   rabbitmq_data:
