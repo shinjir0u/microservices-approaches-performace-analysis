@@ -55,6 +55,24 @@ management:
     distribution:
       percentiles-histogram:
         http.server.requests: true
+  tracing:
+    sampling:
+      probability: 1.0
+  opentelemetry:
+    metrics:
+      export:
+        enabled: false
+    tracing:
+      export:
+        otlp:
+          endpoint: http://jaeger:4318/v1/traces
+          enabled: true
+
+logging:
+  level:
+    io.micrometer.tracing: DEBUG
+    io.opentelemetry: DEBUG
+    org.springframework.boot.actuate.autoconfigure.tracing: DEBUG
 
 server:
   port: 8080

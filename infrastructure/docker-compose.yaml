@@ -46,6 +46,16 @@ services:
     networks:
       - my-global-network
 
+  jaeger:
+    image: jaegertracing/all-in-one:1.60
+    container_name: jaeger
+    ports:
+      - "16686:16686"
+      - "4317:4317"
+      - "4318:4318"
+    networks:
+      - my-global-network
+
   order-db:
     image: postgres:18-alpine
     container_name: order-db
@@ -54,7 +64,7 @@ services:
     env_file:
       - "order/.env"
     volumes:
-      - order-db-data:/var/lib/postgresql/18/data
+      - order-db-data:/var/lib/postgresql
     networks:
       - my-global-network
 
@@ -66,7 +76,7 @@ services:
     env_file:
       - "payment/.env"
     volumes:
-      - payment-db-data:/var/lib/postgresql/18/data
+      - payment-db-data:/var/lib/postgresql
     networks:
       - my-global-network
 
@@ -78,7 +88,7 @@ services:
     env_file:
       - "inventory/.env"
     volumes:
-      - inventory-db-data:/var/lib/postgresql/18/data
+      - inventory-db-data:/var/lib/postgresql
     networks:
       - my-global-network
 
