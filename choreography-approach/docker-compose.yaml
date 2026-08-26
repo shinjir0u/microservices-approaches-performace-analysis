@@ -41,4 +41,3 @@ services:
 networks:
   my-global-network:
     external: true
-    name: infrastructure_my-global-network

@@ -35,11 +35,8 @@ public class OrderServiceImpl implements OrderService {
         if (order.getStatus() != Status.PENDING)
             return;
 
-        boolean inventoryReservedEventExists = processedEventRepository.existsByOrderIdAndName(orderId, INVENTORY_RESERVED_EVENT);
-        boolean paymentChargedEventExists = processedEventRepository.existsByOrderIdAndName(orderId, PAYMENT_CHARGED_EVENT);
-
-        log.info("Inventory reserved {}", inventoryReservedEventExists);
-        log.info("Payment charged {}", paymentChargedEventExists);
+        boolean inventoryReservedEventExists = processedEventRepository.existsByNameAndOrderId(INVENTORY_RESERVED_EVENT, orderId);
+        boolean paymentChargedEventExists = processedEventRepository.existsByNameAndOrderId(PAYMENT_CHARGED_EVENT, orderId);
 
         if (inventoryReservedEventExists && paymentChargedEventExists) {
             order.setStatus(Status.SUCCESS);

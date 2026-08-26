@@ -1,0 +1,15 @@
+global:
+  scrape_interval: 5s
+  evaluation_interval: 5s
+
+scrape_configs:
+  - job_name: 'my-job'
+    metrics_path: '/actuator/prometheus'
+    static_configs:
+      - targets:
+          - 'order:8080'
+          - 'inventory:8080'
+          - 'payment:8080'
+  - job_name: 'rabbitmq-broker'
+    static_configs:
+      - targets: [ 'my-rabbitmq:15692' ]

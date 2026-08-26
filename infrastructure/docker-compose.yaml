@@ -17,6 +17,35 @@ services:
     networks:
       - my-global-network
 
+  prometheus:
+    image: prom/prometheus:v3.13.1
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    restart: unless-stopped
+    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml:ro
+      - prometheus_data:/var/prometheus
+    networks:
+      - my-global-network
+
+  grafana:
+    image: grafana/grafana:11.6.16
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+    volumes:
+      - grafana-data:/var/lib/grafana
+      - ./provisioning:/etc/grafana/provisioning:ro
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin
+      - GF_USERS_ALLOW_SIGN_UP=false
+    networks:
+      - my-global-network
+
   order-db:
     image: postgres:18-alpine
     container_name: order-db
@@ -56,9 +85,12 @@ services:
 networks:
   my-global-network:
     driver: bridge
+    external: true
 
 volumes:
+  rabbitmq_data:
+  prometheus_data:
+  grafana-data:
   order-db-data:
   payment-db-data:
   inventory-db-data:
-  rabbitmq_data:
