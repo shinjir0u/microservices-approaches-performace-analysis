@@ -1,13 +1,14 @@
 package com.orchestration.orchestrator.service.rabbit;
 
-import com.orchestration.orchestrator.model.dto.SagaCommand;
+import com.orchestration.orchestrator.model.dto.InventoryCommand;
+import com.orchestration.orchestrator.model.dto.OrderCommand;
+import com.orchestration.orchestrator.model.dto.PaymentCommand;
 
 public interface RabbitService {
 
-    void sendOrderCommand(SagaCommand sagaCommand);
+    void sendOrderCommand(OrderCommand orderCommand);
 
-    void sendPaymentCommand(SagaCommand sagaCommand);
+    void sendPaymentCommand(PaymentCommand paymentCommand);
 
-    void sendInventoryCommand(SagaCommand sagaCommand);
-
+    void sendInventoryCommand(InventoryCommand inventoryCommand);
 }
