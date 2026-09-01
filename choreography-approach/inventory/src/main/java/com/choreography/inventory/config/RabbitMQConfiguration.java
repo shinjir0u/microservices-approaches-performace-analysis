@@ -82,6 +82,7 @@ public class RabbitMQConfiguration {
     public RabbitTemplate rabbitTemplate(ConnectionFactory connectionFactory) {
         var rabbitTemplate = new RabbitTemplate(connectionFactory);
         rabbitTemplate.setMessageConverter(messageConverter());
+        rabbitTemplate.setObservationEnabled(true);
         return rabbitTemplate;
     }
 

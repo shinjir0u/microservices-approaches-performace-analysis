@@ -20,6 +20,9 @@ spring:
     port: ${RABBITMQ_PORT}
     username: ${RABBITMQ_USERNAME}
     password: ${RABBITMQ_PASSWORD}
+    listener:
+      simple:
+        observation-enabled: true
     order:
       created:
         payment:
@@ -46,9 +49,10 @@ management:
     web:
       exposure:
         include: "health,info,prometheus"
-  endpoint:
-    prometheus:
-      enabled: true
+  prometheus:
+    metrics:
+      export:
+        enabled: true
   metrics:
     tags:
       application: "choreography-payment"
@@ -58,21 +62,19 @@ management:
   tracing:
     sampling:
       probability: 1.0
-  opentelemetry:
+  otlp:
     metrics:
       export:
         enabled: false
+  opentelemetry:
     tracing:
       export:
         otlp:
           endpoint: http://jaeger:4318/v1/traces
-          enabled: true
-
-logging:
-  level:
-    io.micrometer.tracing: DEBUG
-    io.opentelemetry: DEBUG
-    org.springframework.boot.actuate.autoconfigure.tracing: DEBUG
+          timeout: 30s
+        schedule-delay: 1s
+        max-batch-size: 256
+        max-queue-size: 2048
 
 server:
   port: 8080
