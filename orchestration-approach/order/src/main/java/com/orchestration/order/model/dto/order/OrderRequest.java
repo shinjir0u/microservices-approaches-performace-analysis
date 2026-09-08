@@ -1,4 +1,4 @@
-package com.orchestration.order.model.dto;
+package com.orchestration.order.model.dto.order;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
