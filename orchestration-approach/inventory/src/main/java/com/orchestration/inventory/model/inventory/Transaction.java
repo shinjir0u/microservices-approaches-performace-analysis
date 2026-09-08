@@ -1,6 +1,6 @@
 package com.orchestration.inventory.model.inventory;
 
-import com.choreography.inventory.model.inventory.type.TransactionStatus;
+import com.orchestration.inventory.model.inventory.type.TransactionStatus;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;

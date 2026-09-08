@@ -1,8 +1,7 @@
 package com.orchestration.order.model.order;
 
-import com.choreography.order.model.dto.OrderRequest;
-import com.choreography.order.model.order.OrderItem;
-import com.choreography.order.model.order.type.Status;
+import com.orchestration.order.model.dto.OrderRequest;
+import com.orchestration.order.model.order.type.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
