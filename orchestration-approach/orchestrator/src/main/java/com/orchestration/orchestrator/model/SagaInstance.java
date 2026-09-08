@@ -1,5 +1,6 @@
 package com.orchestration.orchestrator.model;
 
+import com.orchestration.orchestrator.model.dto.SagaStartCommand;
 import com.orchestration.orchestrator.model.type.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -31,5 +32,15 @@ public class SagaInstance {
 
     @Version
     private Long version;
-    
+
+    public static SagaInstance from(SagaStartCommand sagaStartCommand) {
+        return SagaInstance.builder()
+                .sagaId(UUID.randomUUID())
+                .orderId(sagaStartCommand.orderId())
+                .status(Status.PROCESSING)
+                .isInventorySuccess(false)
+                .isPaymentSuccess(false)
+                .build();
+    }
+
 }

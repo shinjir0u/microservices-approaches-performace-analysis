@@ -11,4 +11,11 @@ public record PaymentCommand(
         UUID orderId,
         BigDecimal totalAmount
 ) {
+    public static PaymentCommand from(UUID sagaId, SagaStartCommand sagaStartCommand) {
+        return PaymentCommand.builder()
+                .sagaId(sagaId)
+                .orderId(sagaStartCommand.orderId())
+                .totalAmount(sagaStartCommand.totalAmount())
+                .build();
+    }
 }
