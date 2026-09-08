@@ -20,8 +20,8 @@ public class CreateOrderUseCase {
 
     public void execute(OrderRequest orderRequest) {
         var order = Order.from(orderRequest);
-        orderService.saveOrder(order);
-        rabbitService.publishOrderCreatedEvent(order, EventStatus.SUCCESS);
+        Order createdOrder = orderService.saveOrder(order);
+        rabbitService.publishOrderCreatedEvent(createdOrder, EventStatus.SUCCESS);
     }
 
 }

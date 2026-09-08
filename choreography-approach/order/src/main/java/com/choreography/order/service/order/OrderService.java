@@ -14,6 +14,6 @@ public interface OrderService {
 
     Order getOrderById(UUID orderId);
 
-    void saveOrder(Order order);
+    Order saveOrder(Order order);
 
 }

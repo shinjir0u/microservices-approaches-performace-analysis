@@ -68,9 +68,10 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional
-    public void saveOrder(Order order) {
+    public Order saveOrder(Order order) {
         Order savedOrder = orderRepository.save(order);
         log.info("Created order with id: {}", savedOrder.getId());
+        return savedOrder;
     }
 
 }
