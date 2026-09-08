@@ -1,6 +1,7 @@
 package com.orchestration.order.usecase;
 
 import com.orchestration.order.model.dto.order.OrderRequest;
+import com.orchestration.order.model.dto.saga.SagaStartCommand;
 import com.orchestration.order.model.order.Order;
 import com.orchestration.order.service.order.OrderService;
 import com.orchestration.order.service.rabbit.RabbitService;
@@ -20,7 +21,7 @@ public class CreateOrderUsecase {
     public void execute(OrderRequest orderRequest) {
         Order order = Order.from(orderRequest);
         Order savedOrder = orderService.saveOrder(order);
-        rabbitService.sendOrchestratorStartCommand(Order.toSagaStartCommand(savedOrder));
+        rabbitService.sendOrchestratorStartCommand(SagaStartCommand.from(savedOrder));
     }
 
 }

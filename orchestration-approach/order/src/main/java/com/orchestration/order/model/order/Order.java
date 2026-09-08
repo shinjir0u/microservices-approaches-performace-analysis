@@ -1,7 +1,6 @@
 package com.orchestration.order.model.order;
 
 import com.orchestration.order.model.dto.order.OrderRequest;
-import com.orchestration.order.model.dto.saga.SagaStartCommand;
 import com.orchestration.order.model.order.type.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -73,21 +72,6 @@ public class Order {
                 .status(Status.PENDING)
                 .totalAmount(request.totalAmount())
                 .orderItems(orderItems)
-                .build();
-    }
-
-    public static SagaStartCommand toSagaStartCommand(Order order) {
-        List<SagaStartCommand.Item> items = order.orderItems.stream().map(
-                orderItem -> SagaStartCommand.Item.builder()
-                        .itemCode(orderItem.getItemCode())
-                        .quantity(orderItem.getQuantity())
-                        .build()
-        ).toList();
-
-        return SagaStartCommand.builder()
-                .orderId(order.getId())
-                .totalAmount(order.getTotalAmount())
-                .items(items)
                 .build();
     }
 
