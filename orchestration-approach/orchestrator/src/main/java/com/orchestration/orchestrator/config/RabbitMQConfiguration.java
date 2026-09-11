@@ -56,6 +56,36 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
+    public Queue paymentFailCommandQueue() {
+        return new Queue(RabbitMQSetting.PAYMENT_FAIL_COMMAND_QUEUE);
+    }
+
+    @Bean
+    public Exchange paymentFailCommandExchange() {
+        return new DirectExchange(RabbitMQSetting.PAYMENT_FAIL_COMMAND_EXCHANGE);
+    }
+
+    @Bean
+    public Binding paymentFailCommandBinding() {
+        return BindingBuilder.bind(paymentFailCommandQueue()).to(paymentFailCommandExchange()).with(RabbitMQSetting.PAYMENT_FAIL_COMMAND_ROUTING_KEY).noargs();
+    }
+
+    @Bean
+    public Queue inventoryFailCommandQueue() {
+        return new Queue(RabbitMQSetting.INVENTORY_FAIL_COMMAND_QUEUE);
+    }
+
+    @Bean
+    public Exchange inventoryFailCommandExchange() {
+        return new DirectExchange(RabbitMQSetting.INVENTORY_FAIL_COMMAND_EXCHANGE);
+    }
+
+    @Bean
+    public Binding inventoryFailCommandBinding() {
+        return BindingBuilder.bind(inventoryFailCommandQueue()).to(inventoryFailCommandExchange()).with(RabbitMQSetting.INVENTORY_FAIL_COMMAND_ROUTING_KEY).noargs();
+    }
+
+    @Bean
     public MessageConverter messageConverter() {
         return new JacksonJsonMessageConverter();
     }

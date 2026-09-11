@@ -10,4 +10,6 @@ public class RabbitMQSetting {
 
     public static final String PAYMENT_COMMAND_QUEUE = "payment.command.queue";
 
+    public static final String PAYMENT_FAIL_COMMAND_QUEUE = "payment.fail.command.queue";
+
 }

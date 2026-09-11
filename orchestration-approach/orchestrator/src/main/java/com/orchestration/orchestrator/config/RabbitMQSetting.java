@@ -14,6 +14,14 @@ public class RabbitMQSetting {
     public static final String PAYMENT_COMMAND_EXCHANGE = "payment.command.exchange";
     public static final String PAYMENT_COMMAND_ROUTING_KEY = "payment.command.routingkey";
 
+    public static final String INVENTORY_FAIL_COMMAND_QUEUE = "inventory.fail.command.queue";
+    public static final String INVENTORY_FAIL_COMMAND_EXCHANGE = "inventory.fail.command.exchange";
+    public static final String INVENTORY_FAIL_COMMAND_ROUTING_KEY = "inventory.fail.command.routingkey";
+
+    public static final String PAYMENT_FAIL_COMMAND_QUEUE = "payment.fail.command.queue";
+    public static final String PAYMENT_FAIL_COMMAND_EXCHANGE = "payment.fail.command.exchange";
+    public static final String PAYMENT_FAIL_COMMAND_ROUTING_KEY = "payment.fail.command.routingkey";
+
     public static final String ORDER_COMMAND_QUEUE = "order.command.queue";
     public static final String ORDER_COMMAND_EXCHANGE = "order.command.exchange";
     public static final String ORDER_COMMAND_ROUTING_KEY = "order.command.routingkey";

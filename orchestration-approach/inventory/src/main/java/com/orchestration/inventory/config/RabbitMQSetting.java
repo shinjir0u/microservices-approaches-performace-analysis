@@ -8,4 +8,6 @@ public class RabbitMQSetting {
 
     public static final String INVENTORY_COMMAND_QUEUE = "inventory.command.queue";
 
+    public static final String INVENTORY_FAIL_COMMAND_QUEUE = "inventory.fail.command.queue";
+
 }
