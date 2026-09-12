@@ -18,7 +18,7 @@ public class PaymentListener {
 
     private final RabbitService rabbitService;
 
-    @RabbitListener(queues = RabbitMQSetting.ORCHESTRATOR_START_QUEUE)
+    @RabbitListener(queues = RabbitMQSetting.PAYMENT_COMMAND_QUEUE)
     public void handlePaymentCommand(PaymentCommand paymentCommand) {
         log.info("Received paymentCommand with order id: {}", paymentCommand.orderId());
 
