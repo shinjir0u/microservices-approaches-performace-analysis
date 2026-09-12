@@ -28,4 +28,8 @@ public class RabbitMQSetting {
     public static final String ORDER_COMMAND_EXCHANGE = "order.command.exchange";
     public static final String ORDER_COMMAND_ROUTING_KEY = "order.command.routingkey";
 
+    public static final String ORDER_FAIL_COMMAND_QUEUE = "order.fail.command.queue";
+    public static final String ORDER_FAIL_COMMAND_EXCHANGE = "order.fail.command.exchange";
+    public static final String ORDER_FAIL_COMMAND_ROUTING_KEY = "order.fail.command.routingkey";
+
 }

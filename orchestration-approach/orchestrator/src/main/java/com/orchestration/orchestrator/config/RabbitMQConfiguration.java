@@ -26,6 +26,21 @@ public class RabbitMQConfiguration {
     }
 
     @Bean
+    public Queue orderFailCommandQueue() {
+        return new Queue(RabbitMQSetting.ORDER_FAIL_COMMAND_QUEUE);
+    }
+
+    @Bean
+    public Exchange orderFailCommandExchange() {
+        return new DirectExchange(RabbitMQSetting.ORDER_FAIL_COMMAND_EXCHANGE);
+    }
+
+    @Bean
+    public Binding orderFailCommandBinding() {
+        return BindingBuilder.bind(orderFailCommandQueue()).to(orderFailCommandExchange()).with(RabbitMQSetting.ORDER_FAIL_COMMAND_ROUTING_KEY).noargs();
+    }
+
+    @Bean
     public Queue paymentCommandQueue() {
         return new Queue(RabbitMQSetting.PAYMENT_COMMAND_QUEUE);
     }
