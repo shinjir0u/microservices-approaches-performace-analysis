@@ -1,6 +1,8 @@
 package com.orchestration.orchestrator.model;
 
 import com.orchestration.orchestrator.model.dto.SagaStartCommand;
+import com.orchestration.orchestrator.model.type.InventoryStatus;
+import com.orchestration.orchestrator.model.type.PaymentStatus;
 import com.orchestration.orchestrator.model.type.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -26,9 +28,9 @@ public class SagaInstance {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private boolean isInventorySuccess;
+    private InventoryStatus inventoryStatus;
 
-    private boolean isPaymentSuccess;
+    private PaymentStatus paymentStatus;
 
     @Version
     private Long version;
@@ -38,8 +40,8 @@ public class SagaInstance {
                 .sagaId(UUID.randomUUID())
                 .orderId(sagaStartCommand.orderId())
                 .status(Status.PROCESSING)
-                .isInventorySuccess(false)
-                .isPaymentSuccess(false)
+                .inventoryStatus(InventoryStatus.PENDING)
+                .paymentStatus(PaymentStatus.PENDING)
                 .build();
     }
 
