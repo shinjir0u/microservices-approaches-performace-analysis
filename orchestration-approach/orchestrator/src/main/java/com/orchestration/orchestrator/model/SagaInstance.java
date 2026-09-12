@@ -1,8 +1,7 @@
 package com.orchestration.orchestrator.model;
 
 import com.orchestration.orchestrator.model.dto.SagaStartCommand;
-import com.orchestration.orchestrator.model.type.InventoryStatus;
-import com.orchestration.orchestrator.model.type.PaymentStatus;
+import com.orchestration.orchestrator.model.type.ServiceStatus;
 import com.orchestration.orchestrator.model.type.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -28,9 +27,11 @@ public class SagaInstance {
     @Enumerated(EnumType.STRING)
     private Status status;
 
-    private InventoryStatus inventoryStatus;
+    @Enumerated(EnumType.STRING)
+    private ServiceStatus inventoryStatus;
 
-    private PaymentStatus paymentStatus;
+    @Enumerated(EnumType.STRING)
+    private ServiceStatus paymentStatus;
 
     @Version
     private Long version;
@@ -40,9 +41,29 @@ public class SagaInstance {
                 .sagaId(UUID.randomUUID())
                 .orderId(sagaStartCommand.orderId())
                 .status(Status.PROCESSING)
-                .inventoryStatus(InventoryStatus.PENDING)
-                .paymentStatus(PaymentStatus.PENDING)
+                .inventoryStatus(ServiceStatus.PENDING)
+                .paymentStatus(ServiceStatus.PENDING)
                 .build();
+    }
+
+    public void updateInventoryStatus(boolean success) {
+        setInventoryStatus(success ? ServiceStatus.SUCCESS : ServiceStatus.FAIL);
+    }
+
+    public void updatePaymentStatus(boolean success) {
+        setPaymentStatus(success ? ServiceStatus.SUCCESS : ServiceStatus.FAIL);
+    }
+
+    public boolean isAllServicesSucceeded() {
+        return ServiceStatus.SUCCESS.equals(inventoryStatus) && ServiceStatus.SUCCESS.equals(paymentStatus);
+    }
+
+    public boolean isInventoryFailed() {
+        return ServiceStatus.FAIL.equals(getInventoryStatus());
+    }
+
+    public boolean isPaymentFailed() {
+        return ServiceStatus.FAIL.equals(getPaymentStatus());
     }
 
 }

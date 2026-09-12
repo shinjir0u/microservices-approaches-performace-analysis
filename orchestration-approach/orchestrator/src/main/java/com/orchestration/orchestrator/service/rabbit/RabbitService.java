@@ -9,7 +9,7 @@ public interface RabbitService {
 
     void sendOrderCommand(OrderCommand orderCommand);
 
-    void sendFailOrderCommand(FailCommand orderFailCommand);
+    void sendOrderFailCommand(FailCommand orderFailCommand);
 
     void sendPaymentCommand(PaymentCommand paymentCommand);
 

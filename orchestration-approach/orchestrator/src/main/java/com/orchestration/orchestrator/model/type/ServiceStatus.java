@@ -1,5 +1,5 @@
 package com.orchestration.orchestrator.model.type;
 
-public enum PaymentStatus {
+public enum ServiceStatus {
     PENDING, SUCCESS, FAIL
 }

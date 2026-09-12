@@ -24,7 +24,7 @@ public class RabbitServiceImpl implements RabbitService {
     }
 
     @Override
-    public void sendFailOrderCommand(FailCommand orderFailCommand) {
+    public void sendOrderFailCommand(FailCommand orderFailCommand) {
         rabbitTemplate.convertAndSend(RabbitMQSetting.ORDER_FAIL_COMMAND_EXCHANGE, RabbitMQSetting.ORDER_FAIL_COMMAND_ROUTING_KEY, orderFailCommand);
         log.info("Sent order fail command with sagaId: {}", orderFailCommand.sagaId());
     }
