@@ -4,6 +4,8 @@ public class RabbitMQSetting {
 
     public static final String ORCHESTRATOR_START_QUEUE = "orchestrator.start.queue";
 
+    public static final String ORCHESTRATOR_ORDER_REPLY_QUEUE = "orchestrator.order.reply.queue";
+
     public static final String ORCHESTRATOR_INVENTORY_REPLY_QUEUE = "orchestrator.inventory.reply.queue";
 
     public static final String ORCHESTRATOR_PAYMENT_REPLY_QUEUE = "orchestrator.payment.reply.queue";

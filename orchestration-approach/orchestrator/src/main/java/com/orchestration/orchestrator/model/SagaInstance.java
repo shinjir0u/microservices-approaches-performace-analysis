@@ -54,6 +54,10 @@ public class SagaInstance {
         setPaymentStatus(success ? ServiceStatus.SUCCESS : ServiceStatus.FAIL);
     }
 
+    public void updateSagaStatus(boolean success) {
+        setStatus(success ? Status.COMPLETED : Status.FAILED);
+    }
+
     public boolean isAllServicesSucceeded() {
         return ServiceStatus.SUCCESS.equals(inventoryStatus) && ServiceStatus.SUCCESS.equals(paymentStatus);
     }

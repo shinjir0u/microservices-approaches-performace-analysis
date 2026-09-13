@@ -6,7 +6,9 @@ import com.orchestration.orchestrator.model.dto.FailCommand;
 import com.orchestration.orchestrator.model.dto.OrderCommand;
 import com.orchestration.orchestrator.model.dto.SagaReply;
 import com.orchestration.orchestrator.service.rabbit.RabbitService;
-import com.orchestration.orchestrator.usecase.HandleSagaReplyUseCase;
+import com.orchestration.orchestrator.usecase.HandleInventorySagaReplyUseCase;
+import com.orchestration.orchestrator.usecase.HandleOrderSagaReplyUseCase;
+import com.orchestration.orchestrator.usecase.HandlePaymentSagaReplyUseCase;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
@@ -17,7 +19,11 @@ import org.springframework.stereotype.Component;
 @RequiredArgsConstructor
 public class SagaReplyListener {
 
-    private final HandleSagaReplyUseCase handleSagaReplyUseCase;
+    private final HandleInventorySagaReplyUseCase handleInventorySagaReplyUseCase;
+
+    private final HandlePaymentSagaReplyUseCase handlePaymentSagaReplyUseCase;
+
+    private final HandleOrderSagaReplyUseCase handleOrderSagaReplyUseCase;
 
     private final RabbitService rabbitService;
 
@@ -25,7 +31,7 @@ public class SagaReplyListener {
     public void handleInventorySagaReply(SagaReply sagaReply) {
         log.info("Received inventorySagaReply with sagaId: {}", sagaReply.sagaId());
 
-        SagaInstance sagaInstance = handleSagaReplyUseCase.execute(sagaReply);
+        SagaInstance sagaInstance = handleInventorySagaReplyUseCase.execute(sagaReply);
         if (sagaInstance.isInventoryFailed()) {
             FailCommand failCommand = FailCommand.from(sagaInstance);
             rabbitService.sendOrderFailCommand(failCommand);
@@ -37,11 +43,11 @@ public class SagaReplyListener {
             rabbitService.sendOrderCommand(OrderCommand.from(sagaInstance));
     }
 
-    @RabbitListener(queues = RabbitMQSetting.ORCHESTRATOR_INVENTORY_REPLY_QUEUE)
+    @RabbitListener(queues = RabbitMQSetting.ORCHESTRATOR_PAYMENT_REPLY_QUEUE)
     public void handlePaymentSagaReply(SagaReply sagaReply) {
         log.info("Received paymentSagaReply with sagaId: {}", sagaReply.sagaId());
 
-        SagaInstance sagaInstance = handleSagaReplyUseCase.execute(sagaReply);
+        SagaInstance sagaInstance = handlePaymentSagaReplyUseCase.execute(sagaReply);
         if (sagaInstance.isPaymentFailed()) {
             FailCommand failCommand = FailCommand.from(sagaInstance);
             rabbitService.sendOrderFailCommand(failCommand);
@@ -51,6 +57,13 @@ public class SagaReplyListener {
 
         if (sagaInstance.isAllServicesSucceeded())
             rabbitService.sendOrderCommand(OrderCommand.from(sagaInstance));
+    }
+
+    @RabbitListener(queues = RabbitMQSetting.ORCHESTRATOR_ORDER_REPLY_QUEUE)
+    public void handleOrderSagaReply(SagaReply sagaReply) {
+        log.info("Received orderSagaReply with sagaId: {}", sagaReply.sagaId());
+
+        handleOrderSagaReplyUseCase.execute(sagaReply);
     }
 
 }

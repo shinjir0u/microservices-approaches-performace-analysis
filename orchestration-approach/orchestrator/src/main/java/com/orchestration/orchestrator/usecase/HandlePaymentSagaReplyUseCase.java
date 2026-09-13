@@ -10,12 +10,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class HandleSagaReplyUseCase {
+public class HandlePaymentSagaReplyUseCase {
 
     private final OrchestratorService orchestratorService;
 
     public SagaInstance execute(SagaReply sagaReply) {
         SagaInstance sagaInstance = orchestratorService.get(sagaReply.sagaId());
+        sagaInstance.updatePaymentStatus(sagaReply.success());
         return orchestratorService.save(sagaInstance);
     }
+
 }
