@@ -27,8 +27,8 @@ public class RabbitServiceImpl implements RabbitService {
                 .build();
 
         rabbitTemplate.convertAndSend(
-                RabbitMQSetting.ORCHESTRATOR_REPLY_EXCHANGE,
-                RabbitMQSetting.ORCHESTRATOR_REPLY_ROUTING_KEY,
+                RabbitMQSetting.ORCHESTRATOR_PAYMENT_REPLY_EXCHANGE,
+                RabbitMQSetting.ORCHESTRATOR_PAYMENT_REPLY_ROUTING_KEY,
                 sagaReply
         );
     }

@@ -11,23 +11,18 @@ import org.springframework.context.annotation.Configuration;
 public class RabbitMQConfiguration {
 
     @Bean
-    public Queue orchestratorStartQueue() {
-        return new Queue(RabbitMQSetting.ORCHESTRATOR_START_QUEUE);
-    }
-
-    @Bean
     public Queue orchestratorReplyQueue() {
-        return new Queue(RabbitMQSetting.ORCHESTRATOR_REPLY_QUEUE);
+        return new Queue(RabbitMQSetting.ORCHESTRATOR_PAYMENT_REPLY_QUEUE);
     }
 
     @Bean
     public Exchange orchestratorReplyExchange() {
-        return new DirectExchange(RabbitMQSetting.ORCHESTRATOR_REPLY_EXCHANGE);
+        return new DirectExchange(RabbitMQSetting.ORCHESTRATOR_PAYMENT_REPLY_EXCHANGE);
     }
 
     @Bean
     public Binding orchestratorReplyBinding() {
-        return BindingBuilder.bind(orchestratorReplyQueue()).to(orchestratorReplyExchange()).with(RabbitMQSetting.ORCHESTRATOR_REPLY_ROUTING_KEY).noargs();
+        return BindingBuilder.bind(orchestratorReplyQueue()).to(orchestratorReplyExchange()).with(RabbitMQSetting.ORCHESTRATOR_PAYMENT_REPLY_ROUTING_KEY).noargs();
     }
 
     @Bean

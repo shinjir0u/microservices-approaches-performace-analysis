@@ -1,3 +1,71 @@
 spring:
   application:
     name: payment
+  jpa:
+    show-sql: true
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+    hibernate:
+      ddl-auto: update
+      format_sql: true
+  datasource:
+    url: ${ORCHESTRATION_PAYMENT_DB_URL}
+    username: ${POSTGRES_USER}
+    password: ${POSTGRES_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+  rabbitmq:
+    host: ${RABBITMQ_HOST}
+    virtual-host: ${SPRING_RABBITMQ_VHOST}
+    port: ${RABBITMQ_PORT}
+    username: ${RABBITMQ_USERNAME}
+    password: ${RABBITMQ_PASSWORD}
+    listener:
+      simple:
+        observation-enabled: true
+    orchestrator:
+      reply:
+        queue: ${ORCHESTRATOR_PAYMENT_REPLY_QUEUE}
+        exchange: ${ORCHESTRATOR_PAYMENT_REPLY_EXCHANGE}
+        routingKey: ${ORCHESTRATOR_PAYMENT_REPLY_ROUTING_KEY}
+    payment:
+      command:
+        queue: ${PAYMENT_COMMAND_QUEUE}
+      fail:
+        command:
+          queue: ${PAYMENT_FAIL_COMMAND_QUEUE}
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "health,info,prometheus"
+  prometheus:
+    metrics:
+      export:
+        enabled: true
+  metrics:
+    tags:
+      application: "choreography-payment"
+    distribution:
+      percentiles-histogram:
+        http.server.requests: true
+  tracing:
+    sampling:
+      probability: 1.0
+  otlp:
+    metrics:
+      export:
+        enabled: false
+  opentelemetry:
+    tracing:
+      export:
+        otlp:
+          endpoint: http://jaeger:4318/v1/traces
+          timeout: 30s
+        schedule-delay: 1s
+        max-batch-size: 256
+        max-queue-size: 2048
+
+server:
+  port: 8080
