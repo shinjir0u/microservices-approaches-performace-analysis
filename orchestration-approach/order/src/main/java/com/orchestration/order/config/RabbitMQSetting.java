@@ -12,4 +12,6 @@ public class RabbitMQSetting {
 
     public static final String ORDER_COMMAND_QUEUE = "order.command.queue";
 
+    public static final String ORDER_FAIL_COMMAND_QUEUE = "order.fail.command.queue";
+
 }
