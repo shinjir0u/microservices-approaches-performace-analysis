@@ -23,13 +23,15 @@ spring:
     listener:
       simple:
         observation-enabled: true
-    orchestration:
+    orchestrator:
       start:
         queue: ${ORCHESTRATOR_START_QUEUE}
         exchange: ${ORCHESTRATOR_START_EXCHANGE}
         routingKey: ${ORCHESTRATOR_START_ROUTING_KEY}
       reply:
-
+        queue: ${ORCHESTRATOR_ORDER_REPLY_QUEUE}
+        exchange: ${ORCHESTRATOR_ORDER_REPLY_EXCHANGE}
+        routingKey: ${ORCHESTRATOR_ORDER_REPLY_ROUTING_KEY}
     order:
       command:
         queue: ${ORDER_COMMAND_QUEUE}
