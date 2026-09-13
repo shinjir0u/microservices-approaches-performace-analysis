@@ -1,6 +1,5 @@
 package com.orchestration.order.model.dto.saga;
 
-import com.orchestration.orchestrator.model.SagaInstance;
 import lombok.Builder;
 
 import java.util.UUID;
@@ -10,10 +9,4 @@ public record FailCommand(
         UUID sagaId,
         UUID orderId
 ) {
-    public static FailCommand from(SagaInstance sagaInstance) {
-        return FailCommand.builder()
-                .sagaId(sagaInstance.getSagaId())
-                .orderId(sagaInstance.getOrderId())
-                .build();
-    }
 }
