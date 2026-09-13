@@ -92,6 +92,18 @@ services:
     networks:
       - my-global-network
 
+  orchestrator-db:
+    image: postgres:18-alpine
+    container_name: orchestrator-db
+    ports:
+      - "5435:5432"
+    env_file:
+      - "orchestrator/.env"
+    volumes:
+      - orchestrator-db-data:/var/lib/postgresql
+    networks:
+      - my-global-network
+
 networks:
   my-global-network:
     driver: bridge
