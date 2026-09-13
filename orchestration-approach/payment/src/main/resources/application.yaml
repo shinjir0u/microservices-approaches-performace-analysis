@@ -46,7 +46,7 @@ management:
         enabled: true
   metrics:
     tags:
-      application: "choreography-payment"
+      application: "orchestration-payment"
     distribution:
       percentiles-histogram:
         http.server.requests: true
