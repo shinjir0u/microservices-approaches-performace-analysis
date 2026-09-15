@@ -1,6 +1,5 @@
 package com.orchestration.order.listener;
 
-import com.orchestration.order.config.RabbitMQSetting;
 import com.orchestration.order.model.dto.saga.FailCommand;
 import com.orchestration.order.model.dto.saga.OrderCommand;
 import com.orchestration.order.model.dto.saga.SagaReply;
@@ -21,7 +20,7 @@ public class OrderListener {
 
     private final RabbitService rabbitService;
 
-    @RabbitListener(queues = RabbitMQSetting.ORDER_COMMAND_QUEUE)
+    @RabbitListener(queues = "${spring.rabbitmq.order.command.queue}")
     public void handleOrderCommand(OrderCommand orderCommand) {
         log.info("Received orderCommand with orderId: {}", orderCommand.orderId());
 
@@ -29,7 +28,7 @@ public class OrderListener {
         rabbitService.sendOrderSagaReply(SagaReply.from(orderCommand, true));
     }
 
-    @RabbitListener(queues = RabbitMQSetting.ORDER_FAIL_COMMAND_QUEUE)
+    @RabbitListener(queues = "${spring.rabbitmq.order.fail.command.queue}")
     public void handleOrderFailCommand(FailCommand orderFailCommand) {
         log.info("Received orderFailCommand with orderId: {}", orderFailCommand.orderId());
 

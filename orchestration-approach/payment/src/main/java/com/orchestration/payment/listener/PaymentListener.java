@@ -1,6 +1,6 @@
 package com.orchestration.payment.listener;
 
-import com.orchestration.payment.config.RabbitMQSetting;
+import com.orchestration.payment.model.command.FailCommand;
 import com.orchestration.payment.model.command.PaymentCommand;
 import com.orchestration.payment.service.rabbit.RabbitService;
 import com.orchestration.payment.usecase.ChargePaymentUseCase;
@@ -21,7 +21,7 @@ public class PaymentListener {
 
     private final RabbitService rabbitService;
 
-    @RabbitListener(queues = RabbitMQSetting.PAYMENT_COMMAND_QUEUE)
+    @RabbitListener(queues = "${spring.rabbitmq.payment.command.queue}")
     public void handlePaymentCommand(PaymentCommand paymentCommand) {
         log.info("Received paymentCommand with order id: {}", paymentCommand.orderId());
 
@@ -33,11 +33,11 @@ public class PaymentListener {
         }
     }
 
-    @RabbitListener(queues = RabbitMQSetting.PAYMENT_FAIL_COMMAND_QUEUE)
-    public void handlePaymentFailCommand(PaymentCommand paymentCommand) {
-        log.info("Received paymentFailCommand with order id: {}", paymentCommand.orderId());
+    @RabbitListener(queues = "${spring.rabbitmq.payment.fail.command.queue}")
+    public void handlePaymentFailCommand(FailCommand paymentFailCommand) {
+        log.info("Received paymentFailCommand with order id: {}", paymentFailCommand.orderId());
 
-        revertPaymentUseCase.execute(paymentCommand);
+        revertPaymentUseCase.execute(paymentFailCommand);
     }
 
 }

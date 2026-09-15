@@ -1,6 +1,5 @@
 package com.orchestration.orchestrator.listener;
 
-import com.orchestration.orchestrator.config.RabbitMQSetting;
 import com.orchestration.orchestrator.model.SagaInstance;
 import com.orchestration.orchestrator.model.dto.InventoryCommand;
 import com.orchestration.orchestrator.model.dto.PaymentCommand;
@@ -21,7 +20,7 @@ public class SagaStartListener {
 
     private final RabbitService rabbitService;
 
-    @RabbitListener(queues = RabbitMQSetting.ORCHESTRATOR_START_QUEUE)
+    @RabbitListener(queues = "${spring.rabbitmq.orchestrator.start.queue}")
     public void receiveSagaStartCommand(SagaStartCommand sagaStartCommand) {
         log.info("Received SagaStartCommand with order id: {}", sagaStartCommand.orderId());
         SagaInstance savedSagaInstance = startSagaUseCase.execute(sagaStartCommand);

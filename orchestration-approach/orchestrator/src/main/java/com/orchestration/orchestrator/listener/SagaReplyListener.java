@@ -1,6 +1,5 @@
 package com.orchestration.orchestrator.listener;
 
-import com.orchestration.orchestrator.config.RabbitMQSetting;
 import com.orchestration.orchestrator.model.SagaInstance;
 import com.orchestration.orchestrator.model.dto.FailCommand;
 import com.orchestration.orchestrator.model.dto.OrderCommand;
@@ -27,7 +26,7 @@ public class SagaReplyListener {
 
     private final RabbitService rabbitService;
 
-    @RabbitListener(queues = RabbitMQSetting.ORCHESTRATOR_INVENTORY_REPLY_QUEUE)
+    @RabbitListener(queues = "${spring.rabbitmq.orchestrator.inventory.reply.queue}")
     public void handleInventorySagaReply(SagaReply sagaReply) {
         log.info("Received inventorySagaReply with sagaId: {}", sagaReply.sagaId());
 
@@ -43,7 +42,7 @@ public class SagaReplyListener {
             rabbitService.sendOrderCommand(OrderCommand.from(sagaInstance));
     }
 
-    @RabbitListener(queues = RabbitMQSetting.ORCHESTRATOR_PAYMENT_REPLY_QUEUE)
+    @RabbitListener(queues = "${spring.rabbitmq.orchestrator.payment.reply.queue}")
     public void handlePaymentSagaReply(SagaReply sagaReply) {
         log.info("Received paymentSagaReply with sagaId: {}", sagaReply.sagaId());
 
@@ -59,7 +58,7 @@ public class SagaReplyListener {
             rabbitService.sendOrderCommand(OrderCommand.from(sagaInstance));
     }
 
-    @RabbitListener(queues = RabbitMQSetting.ORCHESTRATOR_ORDER_REPLY_QUEUE)
+    @RabbitListener(queues = "${spring.rabbitmq.orchestrator.order.reply.queue}")
     public void handleOrderSagaReply(SagaReply sagaReply) {
         log.info("Received orderSagaReply with sagaId: {}", sagaReply.sagaId());
 

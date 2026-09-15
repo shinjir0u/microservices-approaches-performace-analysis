@@ -1,11 +1,11 @@
 package com.orchestration.order.service.rabbit;
 
-import com.orchestration.order.config.RabbitMQSetting;
 import com.orchestration.order.model.dto.saga.SagaReply;
 import com.orchestration.order.model.dto.saga.SagaStartCommand;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 @Slf4j
@@ -15,11 +15,23 @@ public class RabbitServiceImpl implements RabbitService {
 
     private final RabbitTemplate rabbitTemplate;
 
+    @Value("${spring.rabbitmq.orchestrator.start.exchange}")
+    private String orchestratorStartExchange;
+
+    @Value("${spring.rabbitmq.orchestrator.start.routingKey}")
+    private String orchestratorStartRoutingKey;
+
+    @Value("${spring.rabbitmq.orchestrator.reply.exchange}")
+    private String orchestratorOrderReplyExchange;
+
+    @Value("${spring.rabbitmq.orchestrator.reply.routingKey}")
+    private String orchestratorOrderReplyRoutingKey;
+
     @Override
     public void sendOrchestratorStartCommand(SagaStartCommand sagaStartCommand) {
         rabbitTemplate.convertAndSend(
-                RabbitMQSetting.ORCHESTRATOR_START_EXCHANGE,
-                RabbitMQSetting.ORCHESTRATOR_START_ROUTING_KEY,
+                orchestratorStartExchange,
+                orchestratorStartRoutingKey,
                 sagaStartCommand
         );
     }
@@ -27,8 +39,8 @@ public class RabbitServiceImpl implements RabbitService {
     @Override
     public void sendOrderSagaReply(SagaReply sagaReply) {
         rabbitTemplate.convertAndSend(
-                RabbitMQSetting.ORCHESTRATOR_ORDER_REPLY_EXCHANGE,
-                RabbitMQSetting.ORCHESTRATOR_ORDER_REPLY_ROUTING_KEY,
+                orchestratorOrderReplyExchange,
+                orchestratorOrderReplyRoutingKey,
                 sagaReply
         );
     }

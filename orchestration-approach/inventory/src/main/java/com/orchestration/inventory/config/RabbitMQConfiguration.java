@@ -5,25 +5,35 @@ import org.springframework.amqp.rabbit.connection.ConnectionFactory;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.amqp.support.converter.JacksonJsonMessageConverter;
 import org.springframework.amqp.support.converter.MessageConverter;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 @Configuration
 public class RabbitMQConfiguration {
 
+    @Value("${spring.rabbitmq.orchestrator.reply.queue}")
+    private String orchestratorInventoryReplyQueue;
+
+    @Value("${spring.rabbitmq.orchestrator.reply.exchange}")
+    private String orchestratorInventoryReplyExchange;
+
+    @Value("${spring.rabbitmq.orchestrator.reply.routingKey}")
+    private String orchestratorInventoryReplyRoutingKey;
+
     @Bean
     public Queue orchestratorReplyQueue() {
-        return new Queue(RabbitMQSetting.ORCHESTRATOR_INVENTORY_REPLY_QUEUE);
+        return new Queue(orchestratorInventoryReplyQueue);
     }
 
     @Bean
     public Exchange orchestratorReplyExchange() {
-        return new DirectExchange(RabbitMQSetting.ORCHESTRATOR_INVENTORY_REPLY_EXCHANGE);
+        return new DirectExchange(orchestratorInventoryReplyExchange);
     }
 
     @Bean
     public Binding orchestratorReplyBinding() {
-        return BindingBuilder.bind(orchestratorReplyQueue()).to(orchestratorReplyExchange()).with(RabbitMQSetting.ORCHESTRATOR_INVENTORY_REPLY_ROUTING_KEY).noargs();
+        return BindingBuilder.bind(orchestratorReplyQueue()).to(orchestratorReplyExchange()).with(orchestratorInventoryReplyRoutingKey).noargs();
     }
 
     @Bean

@@ -1,6 +1,5 @@
 package com.orchestration.inventory.listener;
 
-import com.orchestration.inventory.config.RabbitMQSetting;
 import com.orchestration.inventory.model.command.InventoryCommand;
 import com.orchestration.inventory.service.rabbit.RabbitService;
 import com.orchestration.inventory.usecase.ReserveInventoryUseCase;
@@ -21,7 +20,7 @@ public class InventoryListener {
 
     private final RabbitService rabbitService;
 
-    @RabbitListener(queues = RabbitMQSetting.INVENTORY_COMMAND_QUEUE)
+    @RabbitListener(queues = "${spring.rabbitmq.inventory.command.queue}")
     public void handleInventoryReservedCommand(InventoryCommand inventoryCommand) {
         log.info("Received inventoryCommand with order id: {}", inventoryCommand.orderId());
 
@@ -33,7 +32,7 @@ public class InventoryListener {
         }
     }
 
-    @RabbitListener(queues = RabbitMQSetting.INVENTORY_FAIL_COMMAND_QUEUE)
+    @RabbitListener(queues = "${spring.rabbitmq.inventory.fail.command.queue}")
     public void handleInventoryFailCommand(InventoryCommand inventoryCommand) {
         log.info("Received inventoryFailCommand with order id: {}", inventoryCommand.orderId());
 
