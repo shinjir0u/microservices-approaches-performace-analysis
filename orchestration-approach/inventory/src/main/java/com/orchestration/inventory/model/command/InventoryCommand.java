@@ -18,18 +18,6 @@ public record InventoryCommand(
     ) {
     }
 
-    public static InventoryCommand from(UUID sagaId, SagaStartCommand sagaStartCommand) {
-        List<Item> items = sagaStartCommand.items().stream().map(
-                item -> Item.builder().itemCode(item.itemCode()).quantity(item.quantity()).build()
-        ).toList();
-
-        return InventoryCommand.builder()
-                .sagaId(sagaId)
-                .orderId(sagaStartCommand.orderId())
-                .items(items)
-                .build();
-
-    }
 }
 
 

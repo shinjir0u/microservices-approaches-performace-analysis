@@ -3,7 +3,7 @@ services:
     build:
       context: ./order
       dockerfile: Dockerfile
-    container_name: order
+    container_name: orchestration-order
     ports:
       - "8081:8080"
     env_file:
@@ -16,7 +16,7 @@ services:
     build:
       context: ./payment
       dockerfile: Dockerfile
-    container_name: payment
+    container_name: orchestration-payment
     ports:
       - "8082:8080"
     env_file:
@@ -29,12 +29,25 @@ services:
     build:
       context: ./inventory
       dockerfile: Dockerfile
-    container_name: inventory
+    container_name: orchestration-inventory
     ports:
       - "8083:8080"
     env_file:
       - ".env"
       - "../infrastructure/inventory/.env"
+    networks:
+      - my-global-network
+
+  orchestration:
+    build:
+      context: ./orchestrator
+      dockerfile: Dockerfile
+    container_name: orchestration-orchestrator
+    ports:
+      - "8084:8080"
+    env_file:
+      - ".env"
+      - "../infrastructure/orchestrator/.env"
     networks:
       - my-global-network
 
