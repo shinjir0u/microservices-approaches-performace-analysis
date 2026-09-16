@@ -38,7 +38,6 @@ public class SagaInstance {
 
     public static SagaInstance from(SagaStartCommand sagaStartCommand) {
         return SagaInstance.builder()
-                .sagaId(UUID.randomUUID())
                 .orderId(sagaStartCommand.orderId())
                 .status(Status.PROCESSING)
                 .inventoryStatus(ServiceStatus.PENDING)

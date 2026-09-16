@@ -24,7 +24,7 @@ public class OrchestratorServiceImpl implements OrchestratorService {
     @Override
     public SagaInstance save(SagaInstance sagaInstance) {
         SagaInstance savedSagaInstance = sagaInstanceRepository.save(sagaInstance);
-        log.info("Saved SagaInstance with saga id: {}", savedSagaInstance);
+        log.info("Saved SagaInstance with saga id: {}", savedSagaInstance.getSagaId());
         return savedSagaInstance;
     }
 
