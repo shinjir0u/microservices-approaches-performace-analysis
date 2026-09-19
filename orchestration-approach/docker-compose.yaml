@@ -38,7 +38,7 @@ services:
     networks:
       - my-global-network
 
-  orchestration:
+  orchestrator:
     build:
       context: ./orchestrator
       dockerfile: Dockerfile
