@@ -1,0 +1,756 @@
+# Scenario - 3: Normal No Load Path with 50% compensation
+
+## Orchestration
+
+### k6 
+
+THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<200' p(95)=15.78ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 5675    23.608979/s
+    checks_succeeded...: 100.00% 5675 out of 5675
+    checks_failed......: 0.00%   0 out of 5675
+
+    ✓ status was 200
+
+    HTTP
+    http_req_duration..............: avg=7.64ms min=3.88ms med=6.16ms max=130.33ms p(90)=12.91ms p(95)=15.78ms
+      { expected_response:true }...: avg=7.64ms min=3.88ms med=6.16ms max=130.33ms p(90)=12.91ms p(95)=15.78ms
+    http_req_failed................: 0.00%  0 out of 5675
+    http_reqs......................: 5675   23.608979/s
+
+    EXECUTION
+    iteration_duration.............: avg=1s     min=1s     med=1s     max=1.13s    p(90)=1.01s   p(95)=1.01s  
+    iterations.....................: 5675   23.608979/s
+    vus............................: 1      min=1         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 415 kB 1.7 kB/s
+    data_sent......................: 1.4 MB 5.9 kB/s
+
+
+### grafana
+
+#### Inventory 
+
+GC Count - 0.2 max, 0.03avg
+GC Stop the World Duration - 4.20ms max, 341microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 388ms max, others 4.27ms	
+Connection Acquire Time - 493microseconds max, others 11.4microseconds
+
+System CPU Usage - 0.375max 0.122avg
+Process CPU Usage - 0.0302max 0.0106avg
+Load Average - 4.42max 1.93avg per 1min
+
+#### Orchestrator 
+
+GC Count - 0.4max, 0.129avg
+GC Stop the World Duration - 2.80ms max, 593microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 19ms max, others 1.89ms 
+Connection Acquire Time - 125microseconds max, others 2.48microseconds
+
+System CPU Usage - 0.373max 0.121avg
+Process CPU Usage - 0.0641max 0.0178avg
+Load Average - 4.42max 1.93avg per 1min
+
+#### Order 
+
+GC Count - 0.2max, 0.052avg
+GC Stop the World Duration - 2.20ms max, 319microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 21.3ms max, others 11.4ms
+Connection Acquire Time - 261microseconds max, others 45.2microseconds
+
+System CPU Usage - 0.370max 0.122avg
+Process CPU Usage - 0.0339max 0.0117avg
+Load Average - 4.42max 1.93avg per 1min
+
+#### Payment 
+
+GC Count - 0.4max, 0.114avg
+GC Stop the World Duration - 1.80ms max, 100microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 237ms max, others 9.13ms
+Connection Acquire Time - 307microseconds max, others 12.2microseconds
+
+System CPU Usage - 0.369max 0.121avg
+Process CPU Usage - 0.0245max 0.00917avg
+Load Average - 4.42max 1.93avg per 1min
+
+#### Jaegar
+
+total time - 51.29ms avg, 65.03ms max, 31.91ms min
+
+## Choreography
+
+### k6 
+
+THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<200' p(95)=24.53ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 5651    23.534125/s
+    checks_succeeded...: 100.00% 5651 out of 5651
+    checks_failed......: 0.00%   0 out of 5651
+
+    ✓ status was 200
+
+    HTTP
+    http_req_duration..............: avg=12.14ms min=4.41ms med=11.04ms max=279.87ms p(90)=20.72ms p(95)=24.53ms
+      { expected_response:true }...: avg=12.14ms min=4.41ms med=11.04ms max=279.87ms p(90)=20.72ms p(95)=24.53ms
+    http_req_failed................: 0.00%  0 out of 5651
+    http_reqs......................: 5651   23.534125/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.01s   min=1s     med=1.01s   max=1.28s    p(90)=1.02s   p(95)=1.02s  
+    iterations.....................: 5651   23.534125/s
+    vus............................: 2      min=1         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 413 kB 1.7 kB/s
+    data_sent......................: 1.4 MB 5.9 kB/s
+
+### grafana
+
+#### Inventory 
+
+GC Count - 0.2 max, 0.007avg
+GC Stop the World Duration - 3.40ms max, 93.7microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 63ms max, others 2.83ms	
+Connection Acquire Time - 362microseconds max, others 10.1microseconds
+
+System CPU Usage - 0.250max 0.0242avg
+Process CPU Usage - 0.0376max 0.00256avg
+Load Average - 4.18max 0.373avg per 1min
+
+#### Order 
+
+GC Count - 0.2max, 0.008avg
+GC Stop the World Duration - 2.80ms max, 67.6microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 35.2ms max, others 5.13ms
+Connection Acquire Time - 245microseconds max, others 11.7microseconds
+
+System CPU Usage - 0.253max 0.242avg
+Process CPU Usage - 0.0715max 0.00436avg
+Load Average - 4.18max 0.373avg per 1min
+
+#### Payment 
+
+GC Count - 0.4max, 0.007avg
+GC Stop the World Duration - 4ms max, 49.3microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 49.8ms max, others 7.55ms
+Connection Acquire Time - 205microseconds max, others 6.58microseconds
+
+System CPU Usage - 0.255max 0.0242avg
+Process CPU Usage - 0.051max 0.00327avg
+Load Average - 4.18max 0.373avg per 1min
+
+#### Jaegar
+
+total time - 51.88ms avg, 32.47ms max, 14.81ms min
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Scenario - 1: Normal No Load Happy Path
+
+## Orchestration
+
+### k6 
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<200' p(95)=27.71ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 5654    23.548593/s
+    checks_succeeded...: 100.00% 5654 out of 5654
+    checks_failed......: 0.00%   0 out of 5654
+
+    ✓ status was 200
+
+    HTTP
+    http_req_duration..............: avg=11.35ms min=4.26ms med=8.42ms max=271.11ms p(90)=18.1ms p(95)=27.71ms
+      { expected_response:true }...: avg=11.35ms min=4.26ms med=8.42ms max=271.11ms p(90)=18.1ms p(95)=27.71ms
+    http_req_failed................: 0.00%  0 out of 5654
+    http_reqs......................: 5654   23.548593/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.01s   min=1s     med=1s     max=1.27s    p(90)=1.01s  p(95)=1.02s  
+    iterations.....................: 5654   23.548593/s
+    vus............................: 2      min=1         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 413 kB 1.7 kB/s
+    data_sent......................: 1.4 MB 5.9 kB/s
+
+
+### grafana
+
+#### Inventory 
+
+GC Count - 0.2max, 0.015avg
+GC Stop the World Duration - 6.80ms max, 192microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 247ms max, others 6.90ms 
+Connection Acquire Time - 324microseconds max, others 11.6microseconds
+
+System CPU Usage - 0.458max 0.0791avg
+Process CPU Usage - 0.0572max 0.00746avg
+Load Average - 5.74max 1.47avg per 1min
+
+
+#### Orchestrator
+
+GC Count - 0.6 max, 0.073avg
+GC Stop the World Duration - 9.40ms max, 431microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 3.83ms max, others 2.28ms	
+Connection Acquire Time - 56.6microseconds max, others 2.5microseconds
+
+System CPU Usage - 0.439max 0.0763avg
+Process CPU Usage - 0.0667max 0.0126avg
+Load Average - 4.88max 1.39avg per 1min
+
+#### Order 
+
+GC Count - 0.2max, 0.019avg
+GC Stop the World Duration - 2.20ms max, 115microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 15.4ms max, others 10.1ms
+Connection Acquire Time - 275microseconds max, others 12.5microseconds
+
+System CPU Usage - 0.488max 0.0777avg
+Process CPU Usage - 0.103max 0.0125avg
+Load Average - 4.88max 1.39avg per 1min
+
+#### Payment 
+
+GC Count - 0.2max, 0.012avg
+GC Stop the World Duration - 10.6ms max, 254microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 62ms max, others 4.80ms
+Connection Acquire Time - 485microseconds max, others 11.4microseconds
+
+System CPU Usage - 0.380max 0.078avg
+Process CPU Usage - 0.276max 0.0117avg
+Load Average - 5.74max 1.47avg per 1min
+
+#### Jaegar
+
+total time - 73.27ms avg, 93.66ms max, 47.18ms min
+
+## Choreography
+
+### k6 
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<200' p(95)=27.81ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 5644    23.497243/s
+    checks_succeeded...: 100.00% 5644 out of 5644
+    checks_failed......: 0.00%   0 out of 5644
+
+    ✓ status was 200
+
+    HTTP
+    http_req_duration..............: avg=13.05ms min=4.54ms med=11ms  max=225.45ms p(90)=22.58ms p(95)=27.81ms
+      { expected_response:true }...: avg=13.05ms min=4.54ms med=11ms  max=225.45ms p(90)=22.58ms p(95)=27.81ms
+    http_req_failed................: 0.00%  0 out of 5644
+    http_reqs......................: 5644   23.497243/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.01s   min=1s     med=1.01s max=1.23s    p(90)=1.02s   p(95)=1.02s  
+    iterations.....................: 5644   23.497243/s
+    vus............................: 2      min=1         max=50
+    vus_max........................: 50     min=50        max=50
+
+    NETWORK
+    data_received..................: 413 kB 1.7 kB/s
+    data_sent......................: 1.4 MB 5.9 kB/s
+
+### grafana
+
+#### Inventory 
+
+GC Count - 0.4 max, 0.058avg
+GC Stop the World Duration - 2.6ms max, 458microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 264ms max, others 2.91ms	
+Connection Acquire Time - 329microseconds max, others 12.3microseconds
+
+System CPU Usage - 0.283max 0.113avg
+Process CPU Usage - 0.0504max 0.0155avg
+Load Average - 4.09max 1.88avg per 1min
+
+#### Order 
+
+GC Count - 0.4max, 0.077avg
+GC Stop the World Duration - 3.2ms max, 439microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 56.6ms max, others 6.64ms
+Connection Acquire Time - 212microseconds max, others 15.3microseconds
+
+System CPU Usage - 0.298max 0.112avg
+Process CPU Usage - 0.078max 0.0283avg
+Load Average - 4.09max 1.88avg per 1min
+
+#### Payment 
+
+GC Count - 0.2max, 0.071avg
+GC Stop the World Duration - 3.4ms max, 735microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 96.5ms max, others 10.1ms
+Connection Acquire Time - 291microseconds max, others 7.72microseconds
+
+System CPU Usage - 0.294max 0.111avg
+Process CPU Usage - 0.0588max 0.0181avg
+Load Average - 4.09max 1.88avg per 1min
+
+#### Jaegar
+
+total time - 30.92ms avg, 43.92ms max, 17ms min
+
+----------------------------------------------------------------------
+
+# Scenario - 2: Load Happy Path
+
+## Orchestration
+
+### k6 
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<200' p(95)=31.53ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 20753   86.288549/s
+    checks_succeeded...: 100.00% 20753 out of 20753
+    checks_failed......: 0.00%   0 out of 20753
+
+    ✓ status was 200
+
+    HTTP
+    http_req_duration..............: avg=10.93ms min=3.76ms med=7.89ms max=248.78ms p(90)=20.99ms p(95)=31.53ms
+      { expected_response:true }...: avg=10.93ms min=3.76ms med=7.89ms max=248.78ms p(90)=20.99ms p(95)=31.53ms
+    http_req_failed................: 0.00%  0 out of 20753
+    http_reqs......................: 20753  86.288549/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.01s   min=1s     med=1s     max=1.25s    p(90)=1.02s   p(95)=1.03s  
+    iterations.....................: 20753  86.288549/s
+    vus............................: 3      min=2          max=150
+    vus_max........................: 150    min=150        max=150
+
+    NETWORK
+    data_received..................: 1.5 MB 6.3 kB/s
+    data_sent......................: 5.2 MB 22 kB/s
+
+
+### grafana
+
+#### Inventory 
+
+GC Count - 0.4 max, 0.059avg
+GC Stop the World Duration - 8.20ms max, 405microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 80.7ms max, others 6.10ms	
+Connection Acquire Time - 85.1microseconds max, others 4.20microseconds
+
+System CPU Usage - 0.543max 0.181avg
+Process CPU Usage - 0.0662max 0.0128avg
+Load Average - 6.75max 3.28avg per 1min
+
+#### Orchestrator 
+
+GC Count - 0.6max, 0.209avg
+GC Stop the World Duration - 2ms max, 559microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 4.13ms max, others 3.21ms 
+Connection Acquire Time - 18.5microseconds max, others 855nanoseconds
+
+System CPU Usage - 0.569max 0.180avg
+Process CPU Usage - 0.157max 0.0247avg
+Load Average - 6.75max 3.28avg per 1min
+
+#### Order 
+
+GC Count - 0.2max, 0.074avg
+GC Stop the World Duration - 10ms max, 619microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 13.2ms max, others 10.5ms
+Connection Acquire Time - 25.3microseconds max, others 11.6microseconds
+
+System CPU Usage - 0.525max 0.180avg
+Process CPU Usage - 0.0982max 0.0202avg
+Load Average - 6.75max 3.28avg per 1min
+
+#### Payment 
+
+GC Count - 0.2max, 0.028avg
+GC Stop the World Duration - 1.60ms max, 126microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 7.61ms max, others 5.32ms
+Connection Acquire Time - 22microseconds max, others 4.64microseconds
+
+System CPU Usage - 0.542max 0.180avg
+Process CPU Usage - 0.0561max 0.0107avg
+Load Average - 6.75max 3.28avg per 1min
+
+#### Jaegar
+
+total time - 4m21s avg, 4m21s max, 4m20s min
+
+## Choreography
+
+### k6 
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<200' p(95)=43.34ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 20643   85.876498/s
+    checks_succeeded...: 100.00% 20643 out of 20643
+    checks_failed......: 0.00%   0 out of 20643
+
+    ✓ status was 200
+
+    HTTP
+    http_req_duration..............: avg=15.8ms min=4.11ms med=8.99ms max=269.97ms p(90)=33.19ms p(95)=43.34ms
+      { expected_response:true }...: avg=15.8ms min=4.11ms med=8.99ms max=269.97ms p(90)=33.19ms p(95)=43.34ms
+    http_req_failed................: 0.00%  0 out of 20643
+    http_reqs......................: 20643  85.876498/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.01s  min=1s     med=1.01s  max=1.27s    p(90)=1.03s   p(95)=1.04s  
+    iterations.....................: 20643  85.876498/s
+    vus............................: 3      min=2          max=150
+    vus_max........................: 150    min=150        max=150
+
+    NETWORK
+    data_received..................: 1.5 MB 6.3 kB/s
+    data_sent......................: 5.2 MB 22 kB/s
+
+### grafana
+
+#### Inventory 
+
+GC Count - 0.2 max, 0.088avg
+GC Stop the World Duration - 16.2ms max, 1.89microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 17ms max, others 2.09ms	
+Connection Acquire Time - 25.8microseconds max, others 3.27microseconds
+
+System CPU Usage - 0.668max 0.399avg
+Process CPU Usage - 0.123max 0.0326avg
+Load Average - 9.82max 6.40avg per 1min
+
+#### Order 
+
+GC Count - 0.6max, 0.229avg
+GC Stop the World Duration - 7ms max, 1.25microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 14.4ms max, others 8.52ms
+Connection Acquire Time - 81.5microseconds max, others 63.6microseconds
+
+System CPU Usage - 0.675max 0.289avg
+Process CPU Usage - 0.178max 0.0457avg
+Load Average - 9.82max 5.06avg per 1min
+
+#### Payment 
+
+GC Count - 0.2max, 0.109avg
+GC Stop the World Duration - 1.2ms max, 349microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 25.5ms max, others 12.2ms
+Connection Acquire Time - 33.9microseconds max, others 1.68microseconds
+
+System CPU Usage - 0.703max 0.296avg
+Process CPU Usage - 0.121max 0.0259avg
+Load Average - 9.82max 5.01avg per 1min
+
+#### Jaegar
+
+total time - 1m30s max, 1m29s avg, 1m28s min
+
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+# Scenario - 4: Load Path with 50% compensation
+
+## Orchestration
+
+### k6 
+
+ █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<200' p(95)=76.96ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.01%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 20363  84.797242/s
+    checks_succeeded...: 99.98% 20360 out of 20363
+    checks_failed......: 0.01%  3 out of 20363
+
+    ✗ status was 200
+      ↳  99% — ✓ 20360 / ✗ 3
+
+    HTTP
+    http_req_duration..............: avg=25.46ms min=0s     med=13.26ms max=398.57ms p(90)=54.96ms p(95)=76.96ms
+      { expected_response:true }...: avg=25.46ms min=4.49ms med=13.26ms max=398.57ms p(90)=54.97ms p(95)=76.97ms
+    http_req_failed................: 0.01%  3 out of 20363
+    http_reqs......................: 20363  84.797242/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.03s   min=1s     med=1.01s   max=31s      p(90)=1.05s   p(95)=1.07s  
+    iterations.....................: 20363  84.797242/s
+    vus............................: 3      min=2          max=150
+    vus_max........................: 150    min=150        max=150
+
+    NETWORK
+    data_received..................: 1.5 MB 6.2 kB/s
+    data_sent......................: 5.1 MB 21 kB/s
+
+
+### grafana
+
+#### Inventory 
+
+GC Count - 0.2max, 0.065avg
+GC Stop the World Duration - 10.8ms max, 665microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 25.2ms max, others 6.06ms 
+Connection Acquire Time - 42.1microseconds max, others 3.05microseconds
+
+System CPU Usage - 0.718max 0.412avg
+Process CPU Usage - 0.0947max 0.00261avg
+Load Average - 13.7max 8.67avg per 1min
+
+
+#### Orchestrator
+
+GC Count - 0.6 max, 0.252avg
+GC Stop the World Duration - 12.4ms max, 1.87microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 5ms max, others 4.47ms	
+Connection Acquire Time - 16.3microseconds max, others 1.55microseconds
+
+System CPU Usage - 0.715max 0.412avg
+Process CPU Usage - 0.333max 0.05333avg
+Load Average - 13.7max 8.67avg per 1min
+
+#### Order 
+
+GC Count - 0.2max, 0.123avg
+GC Stop the World Duration - 8.8ms max, 1.03microseconds
+
+Total Pool - 10
+HikariCP connection pending - 1avg
+Connection Usage Time - 15.4ms max, others 10.1ms
+Connection Acquire Time - 1.33milliseconds max, others 845microseconds
+
+System CPU Usage - 0.701max 0.417avg
+Process CPU Usage - 0.118max 0.0387avg
+Load Average - 13.7max 8.67avg per 1min
+
+#### Payment 
+
+GC Count - 0.4max, 0.077avg
+GC Stop the World Duration - 3.2ms max, 613microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 66.2ms max, others 14.6ms
+Connection Acquire Time - 102microseconds max, others 3.72microseconds
+
+System CPU Usage - 0.719max 0.412avg
+Process CPU Usage - 0.293max 0.0352avg
+Load Average - 13.7max 8.67avg per 1min
+
+#### Jaegar
+
+total time - 2m57s max, 1m11s min, there's no mean here, it's either high or low
+
+## Choreography
+
+### k6 
+
+  █ THRESHOLDS 
+
+    http_req_duration
+    ✓ 'p(95)<200' p(95)=40.63ms
+
+    http_req_failed
+    ✓ 'rate<0.01' rate=0.00%
+
+
+  █ TOTAL RESULTS 
+
+    checks_total.......: 20665   85.939589/s
+    checks_succeeded...: 100.00% 20665 out of 20665
+    checks_failed......: 0.00%   0 out of 20665
+
+    ✓ status was 200
+
+    HTTP
+    http_req_duration..............: avg=15.07ms min=3.98ms med=8.54ms max=234.38ms p(90)=31.85ms p(95)=40.63ms
+      { expected_response:true }...: avg=15.07ms min=3.98ms med=8.54ms max=234.38ms p(90)=31.85ms p(95)=40.63ms
+    http_req_failed................: 0.00%  0 out of 20665
+    http_reqs......................: 20665  85.939589/s
+
+    EXECUTION
+    iteration_duration.............: avg=1.01s   min=1s     med=1s     max=1.23s    p(90)=1.03s   p(95)=1.04s  
+    iterations.....................: 20665  85.939589/s
+    vus............................: 3      min=2          max=150
+    vus_max........................: 150    min=150        max=150
+
+    NETWORK
+    data_received..................: 1.5 MB 6.3 kB/s
+    data_sent......................: 5.2 MB 22 kB/s
+
+### grafana
+
+#### Inventory 
+
+GC Count - 0.2 max, 0.052avg
+GC Stop the World Duration - 5ms max, 422microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 111ms max, others 2.11ms	
+Connection Acquire Time - 125microseconds max, others 4.46microseconds
+
+System CPU Usage - 0.657max 0.275avg
+Process CPU Usage - 0.105max 0.018avg
+Load Average - 12.7max 4.86avg per 1min
+
+#### Order 
+
+GC Count - 0.4max, 0.143avg
+GC Stop the World Duration - 4.4ms max, 748microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 40.3ms max, others 11.6ms
+Connection Acquire Time - 128microseconds max, others 74.3microseconds
+
+System CPU Usage - 0.62max 0.274avg
+Process CPU Usage - 0.132max 0.0325avg
+Load Average - 12.7max 4.86avg per 1min
+
+#### Payment 
+
+GC Count - 0.2max, 0.104avg
+GC Stop the World Duration - 7.4ms max, 613microseconds
+
+Total Pool - 10
+HikariCP connection pending - 0avg
+Connection Usage Time - 46.8ms max, others 18.4ms
+Connection Acquire Time - 48.7microseconds max, others 1.85microseconds
+
+System CPU Usage - 0.622max 0.274avg
+Process CPU Usage - 0.0819max 0.0162avg
+Load Average - 12.7max 4.86avg per 1min
+
+#### Jaegar
+
+total time - 2m58s avg, 2m59s max, 2m57s min
