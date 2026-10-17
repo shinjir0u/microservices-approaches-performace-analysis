@@ -110,7 +110,7 @@ Client Request
 | **Complexity** | Centralized workflow logic is easier to visualize but may become overly complex. | Distributed workflow logic can be harder to understand and maintain. |
 | **Maintainability** | Changes to the workflow may require changes to the orchestrator. | Changes may be localized to individual services, depending on event contracts and dependencies. |
 
-## 📊 Key Findings & Trade-offs
+## 📊 Results
 
 Performance evaluation revealed distinct trade-offs between orchestration and choreography in terms of resource utilization, database connection efficiency, and latency.
 
